@@ -22,7 +22,7 @@
         active.barcode = null;
         active.card = null;
        }
-      document.body.addEventListener( 'click', reset );
+      document.body.addEventListener( 'mouseup', reset );
       document.querySelectorAll('.card').forEach(
         ( card ) => {
           handler = e => {
