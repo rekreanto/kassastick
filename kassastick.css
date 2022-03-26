@@ -68,11 +68,11 @@ hr { visibility: hidden; }
 
 .group .card {
   display: inline-block;
-  border: solid 1px hsl( 0, 0%, 70% );
+  min-width: 4rem;
+  border-left: solid 2px hsl( 0, 0%, 40% );
+  border-right: solid 2px hsl( 0, 0%, 40% );
   border-radius: 0.2rem; 
   background-color: hsl( 0, 0%, 99% );
  
 }
 
-
-}
