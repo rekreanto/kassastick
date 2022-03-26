@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lathund</title>
+  <link href= "kassastick.css" rel="stylesheet">
+  <script src="barcodes.js"></script>
+  <script>
+    // do on load
+    let active = { card: null, barcode: null };
+    document.addEventListener('DOMContentLoaded', ( ev ) => {
+  
+      document.body.dataset.state = 'browsing';
+      // find all <script> tags
+      reset = e => {
+        console.log('reset')
+        document.body.dataset.state = 'browsing';
+        if( active.card ) active.card.classList.remove( 'selected' );
+        if( active.barcode ) active.barcode.parentNode.removeChild( active.barcode );
+        active.barcode = null;
+        active.card = null;
+       }
+      document.body.addEventListener( 'click', reset );
+      document.querySelectorAll('.card').forEach(
+        ( card ) => {
+          handler = e => {
+            e.stopPropagation()
+            reset();
+            // REFLECT STATE
+            document.body.dataset.state = 'selected';
+            card.classList.add( 'selected' );
+            active.card = card;
+
+            // PRODUCE BARCODE
+            const eanstr = card.querySelector( '.ean' ).textContent;
+            console.log( 'eanstr: ', eanstr );
+            const eansvg = str2svg( eanstr );
+            const barcode_display = document.createElement( 'div' );
+            barcode_display.innerHTML =  eansvg;
+            barcode_display.classList.add( 'barcode-display' )
+            card.after( barcode_display );
+            
+            // EXIT
+            if( active.barcode ) 
+              active.barcode.parentNode.removeChild( active.barcode );
+            // ENTRY
+            active.barcode = barcode_display;
+          }
+          card.addEventListener( 'click', handler );
+      });
+
+    });
+  </script>
+</head>
+<body data-state="browsing">
+
+  <div class="card">Färgburksöppnare <button class="ean" href="#">7311 230 394 450</button></div>
+  
+
+  <div class="card">
+      Sågning 
+      <button class="ean" href="#">0200 100 102 073</button>
+  </div>
+
+<hr>
+  
+<div class="group">
+  Prov / 
+  <div class="card">
+    Laminat
+    <button class="ean" href="#">0200 500 150 728</button>
+  </div>
+  <div class="card">
+    Parkett
+    <button class="ean" href="#">0200 500 150 735</button>
+  </div>
+</div>
+
+<div class="group">
+  Prov / kakel /  
+  <div class="card">
+    &lt; 30×30   
+    <button class="ean" href="#">0200 500 178 333</button>
+  </div>
+
+  <div class="card">
+    &gt; 30×30
+    <button class="ean" href="#">0200 500 178 340</button>
+  </div>
+
+  <div class="card">
+    &gt; 45×45   
+    <button class="ean" href="#">0200 500 292 176</button>
+  </div>
+</div>
+
+<div class="group">
+  Prov / kakel / 
+  <div class="card">
+    mosaik   
+    <button class="ean" href="#">0200 500 168 297</button>
+  </div>
+</div>
+
+<hr>
+
+<div class="group">
+  T-list
+  <div class="card">
+    grå
+    <button class="ean" href="#">7393 593 00 77 27</button>
+  </div>
+
+  <div class="card">
+    blå
+    <button class="ean" href="#">7393 593 00 77 27</button>
+  </div>
+
+  <div class="card">
+    vit
+    <button class="ean" href="#">7393 593 00 76 97</button>
+  </div>
+</div>
+
+<hr>
+
+<div class="group">
+  Tomburk Plast (Inkl. lock)
+  <div class="card">
+    1L
+    <button class="ean" href="#">7311 230 350 555</button>
+  </div>
+
+  <div class="card">
+    3,4L
+    <button class="ean" href="#">7311 230 350 555</button>
+  </div>
+
+  <div class="card">
+    10L
+    <button class="ean" href="#">7311 230 350 555</button>
+  </div>
+</div>
+
+<hr>
+
+<div class="card">Trossbotten 6 × 550 × 1220 mm  <button class="ean" href="#">7350 072 590 651</button></div>
+
+
+  <div id="shield"></div>
+
+</body>
+</html>
+
+    <!--img src="https://www.bauhaus.se/media/catalog/product/cache/06447b731d1cbff22138e7150384a1c9/3/2/3230003A.jpg"-->
