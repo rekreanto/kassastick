@@ -68,7 +68,7 @@ hr { visibility: hidden; }
 
 .group .card {
   display: inline-block;
-  min-width: 3rem;
+  min-width: 2rem;
   border-left: solid 3px hsl( 0, 0%, 30% );
   border-right: solid 3px hsl( 0, 0%, 30% );
   border-radius: 0.2rem; 
