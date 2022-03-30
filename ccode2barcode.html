@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kassastick</title>
+  <link href= "kassastick.css" rel="stylesheet">
+  <link href= "ccode2barcode.css" rel="stylesheet">
+  
+  <script src="barcodes.js"></script>
+  <script>
+    // do on load
+    let active = { card: null, barcode: null };
+    let inp = []; 
+    document.addEventListener('DOMContentLoaded', ( ev ) => {
+      
+      // BINDINGS
+      const cancelbtn = document.querySelector( 'button.cancel' );
+      const okbtn     = document.querySelector( 'button.ok' );
+      const display   = document.querySelector( '.display' );
+      const dots      = document.querySelectorAll( '.display .dot' );
+      console.log( dots );
+      console.log( cancelbtn );
+      
+      const displayColors = () => {
+        console.log( inp );
+        for( let i = 0; i < dots.length; i++ ){
+          dots[i].dataset.color = inp[i];
+          dots[i].dataset.state = inp[i]? 'active' : 'idle' ;
+          console.log(inp[i]);
+        };
+      };
+      displayColors();
+      cancelbtn.addEventListener( 'click', e => {
+        inp = [];
+        displayColors();
+      } );
+      document.querySelectorAll( '.palette button' ).forEach(
+        btn => {
+          const color = btn.dataset.color;
+          const handler = ev => {
+            inp.push( color );
+            displayColors();
+          };
+          btn.addEventListener( 'click', handler );
+        }
+      )
+    });
+  </script>
+</head>
+<body data-state="browsing">
+<div class="panel">
+  <div class="display">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+
+  </div>
+  <nav class="color-selector">
+    <div class="palette">
+      <div class="palette-row row">
+        <button data-color="r"></button>
+        <button data-color="o"></button>
+        <button data-color="y"></button>
+        <button data-color="g"></button>
+    </div>
+    <div class="palette-row row">
+        <button data-color="b"></button>
+        <button data-color="v"></button>
+        <button data-color="w"></button>
+        <button data-color="z"></button>
+      </div>
+    </div>
+    <div class="control-row row">
+      <button class="cancel">cancel</button>
+      <button class="ok">OK</button>
+    <div>
+  </nav>
+<div>
+
+  <div class="result"></div>
+
+  <div id="shield"></div>
+
+</body>
+</html>
+
+    <!--img src="https://www.bauhaus.se/media/catalog/product/cache/06447b731d1cbff22138e7150384a1c9/3/2/3230003A.jpg"-->

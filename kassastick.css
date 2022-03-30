@@ -40,8 +40,8 @@ body {
 }
 body[data-state=selected] { background-color: #bbb; }
 body[data-state=browsing] #shield { z-index: -2000; }
-body[data-state=selected] .card { filter: blur( 1px ); }
-body[data-state=selected] .card.selected { filter: blur( 0px ); }
+body[data-state=selected] .card { filter: blur( 1px );}
+body[data-state=selected] .card.selected { filter: blur( 0px );  border-color: white;}
 
 body[data-state=selected] .selected {
   position: relative;
