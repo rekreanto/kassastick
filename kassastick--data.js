@@ -1,9 +1,76 @@
 let source_str = ``;
 
+source_str += `
+=2 övrigt
+
+/ diverse
+  # färgburksöppnare
+    ean 7311230 39 4450
+  # EUR-pall
+    ean 0200500 11 1088
+  # BENDERS-pall
+    ean 0200500 39 9936
+
+/ prov / golv
+  # laminat
+    ean 0200500 15 0728
+  # parkett
+    ean 0200500 15 0735
+
+/ prov / kakel
+  * ean 0200500...
+  # < 30x30cm
+    ean ...17 8333
+  # > 30x30cm
+    ean ...17 8340
+  # > 45x45cm
+    ean ...29 2176
+  # mosaik
+    ean ...16 8297
+
+/ prov / 
+  # tapetbok
+    ean 0200500 20 0157 
+
+/ dränering
+  * ean 4752053...
+  # slang 10m/rulle
+    ean ...01 3815
+  # rör 110mm x 4m
+    ean ...01 6397
+
+/ avstängarlist
+  # Combimix 15x15mm
+    ean 7350007 77 0912
+  # Finja 15x15mm
+    ean 7331933 59 6111  
+  
+/ T-list
+  * ean 7393593 00...
+  # grå
+    ean ...7727
+  # blå ...7710
+  # vit ...7697
+
+/ tomburk plast (inkl lock)
+  * ean 7311230 35...
+  # 1L
+    ean ...0555
+  # 3,4L
+    ean ...0647
+  # 10L
+    ean ...0593
+  
+/ bauhaus
+  # hopfällbar korg
+    ean 5900791 00 8504
+  # barncancerfonden RUNDA UPP
+    ean 0200500 188363
+
+    `
 
 source_str += `
-= 3
-* desc Gipsskiva
+= 3 gips
 
 
 / gips / normal / 13x900x___
