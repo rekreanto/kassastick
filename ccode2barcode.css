@@ -55,7 +55,7 @@
 [data-color=b] { background-color: hsl(210,90%,50%); }
 [data-color=v] { background-color: hsl(280,90%,50%); }
 [data-color=w] { background-color: hsl( 20,60%,40%); }
-[data-color=z] { background-color: hsl(  0, 0%, 0%); }
+[data-color=s] { background-color: hsl(  0, 0%, 0%); }
 .dot[data-state=idle] { border-color: #bbb; }
 .dot[data-state=active] { border-color: #888;   box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.75); }
 
