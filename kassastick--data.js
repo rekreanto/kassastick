@@ -1,10 +1,13 @@
-const data = `
-= 2
+let source_str = ``;
+
+
+source_str += `
+= 3
+* desc Gipsskiva
+
 
 / gips / normal / 13x900x___
-  * 
-    desc Gipsskiva
-    ean  7046638888...
+  * ean  7046638888...
 
   # 1800mm
     ean ...118
@@ -23,7 +26,7 @@ const data = `
 
   # 2500mm
     ean ...033
-    ccd yb
+    ccd by
     dim 13x900x2500
 
   # 2700mm
@@ -38,10 +41,7 @@ const data = `
 
 
 / gips / normal / 13x900x___
-    * 
-      desc Gipsskiva
-      ean  5709636009...
-  
+    * ean  5709636009...
     # 2400mm
       ean ...917
       ccd ooos
@@ -78,6 +78,15 @@ const data = `
     ccd vvss
     dim 12,5x600x2400
 
+/ gips
+  # golvgips
+    ean 5709636 398 264
+    ccd yyys
+    dim 13x600x2400
 
+  # plan skiva försänkt
+    ean 7332169 017 753
+    ccd ygg
+    dim 13x900x2400
 
 `
