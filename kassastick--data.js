@@ -116,27 +116,27 @@ DATA.str += `
 
 
 / gips / normal / 13x1200x___
-    * ean  5709636 00 9
+    * ean  5709636 00 
     * dim  13x1200x
     # 2400mm
-      ean ...917
-      ccd ooos
+      ean ...9917
+      ccd rbbb
       dim ...2400
     
     # 2500mm
-      ean ...900
-      ccd ooos
+      ean ...9900
+      ccd rbb
       dim ...2500
 
     # 2700mm
-      ean ...887
-      ccd ooos
+      ean ...9887
+      ccd rsss
       dim ...2700
 
-    # 2700mm
-      ean ...887
-      ccd ooos
-      dim ...2700
+    # 3000mm
+      ean ...9863
+      ccd yyss
+      dim ...3000
 
 / gips / renovering
   # ytskiva 6mm
