@@ -171,3 +171,38 @@ DATA.str += `
     dim 13x900x2400
 
 `
+
+// MDF
+DATA.str += `
+/ MDF / _x1220x2440mm
+  * dim ...x1220x2400mm
+  # 8mm
+    ean 4042456 22 1994
+    ccd b
+    dim 8
+  # 10mm
+    ean 4042456 22 2007
+    ccd bb
+    dim 10
+  # 12mm
+    ean 4042456 22 2014
+    ccd bbb
+    dim 12
+  # 16mm
+    ean 4042456 22 2021
+    ccd bbbb
+    dim 16
+  # 19mm
+    ean 4042456 22 2038
+    ccd bbbbb
+    dim 19
+  # 22mm
+    ean 7350072 59 3799
+    ccd bbbbbb
+    dim 22
+  # 25mm
+    ean 4042456 22 3805
+    ccd bbbbbbb
+    dim 25
+
+`
