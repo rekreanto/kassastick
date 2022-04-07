@@ -192,3 +192,20 @@ hr { visibility: hidden; }
   flex-grow:1;
 }
 
+.button {
+  position: relative;
+  display: inline-block;
+  background: #434343 none repeat scroll 0% 0%;
+  border: 1px solid #242424;
+  border-radius: 4px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.25) inset,
+    0 0 0 rgba(0, 0, 0, 0.5) inset,
+    0 1.25rem 0 rgba(255, 255, 255, 0.08) inset,
+    0 -1.25rem 1.25rem rgba(0, 0, 0, 0.3) inset,
+    0 1.25rem 1.25rem rgba(255, 255, 255, 0.1) inset;
+  text-align: center;
+  text-decoration: none;
+  margin: 0.618rem;
+}
