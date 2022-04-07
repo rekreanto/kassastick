@@ -68,7 +68,7 @@ hr { visibility: hidden; }
 
 .group .item {
   display: inline-block;
-  min-width: 2rem;
+  min-width: 50px;
   border-style: solid;
   border-width: 2px;
   border-radius: 0.33rem;
