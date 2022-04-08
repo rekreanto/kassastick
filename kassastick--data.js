@@ -260,3 +260,32 @@ DATA.str += `
     dim 22...
     
 `
+DATA.str += `
+/ golv / regelgolv
+  * ean 7029560 00
+  # 18x620x1820
+    ccd s
+    ean ...0773
+    dim 18x620x1820
+  # 22x620x1820
+    ccd ss
+    ean ...0698
+    dim 22x620x1820
+  # 22x620x2420
+    ccd sss
+    ean ...5389
+    dim 22x620x2420
+   
+
+/ golv / forestia renoveringsgolv
+  * ean 7029560
+  # 12x620x1820
+    ccd ssss
+    ean ...00 3378
+    dim 12x620x1820
+  # 22x620x1820
+    ccd ssss
+    ean ...02 0009
+    dim 22x620x1820
+
+`
