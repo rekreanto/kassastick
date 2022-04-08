@@ -202,20 +202,27 @@
       });
     };
     // CCD KEYPAD -- control buttons
-    for(let btn of document.querySelectorAll( "#color-keypad .control-btn" ) ){
+/*     for(let btn of document.querySelectorAll( "#color-keypad .control-btn" ) ){
       const c = btn.dataset.char;
       btn.addEventListener( 'click', () => {        
         inp_txt.value += c;
         inp_txt.dispatchEvent( new Event('keyup', { bubbles: false } ) );
       });
-    }
+    } */
     for(let btn of document.querySelectorAll( "#filter .cancel-btn" ) ){
       btn.addEventListener( 'click', () => {
         inp_txt.value = '';
         inp_txt.dispatchEvent( new Event('keyup', { bubbles: false } ) );
       } );
     }
-
+    for(let btn of document.querySelectorAll( "#filter .enter-btn" ) ){
+      btn.addEventListener( 'click', () => {
+        const str = inp_txt.value;
+        inp_txt.value = str.replace(/\S+$/, ccd => `[${ccd}]`);
+        inp_txt.dispatchEvent( new Event('keyup', { bubbles: false } ) );
+      } );
+    }
+  
   });
   </script>
 </head>
