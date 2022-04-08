@@ -35,7 +35,7 @@
       )
     ;
 
-    const wildcard = str => str.replace( /…/, '\S*' )
+    const wildcard = str => str.replace( /…/, '\\S*?' )
 
     // credit esc_re: https://stackoverflow.com/users/18936/bobince
     const esc_re = ( str ) =>
@@ -185,7 +185,9 @@
     const inp_txt = document.getElementById( 'inp-txt' );
     const ccd_display = document.querySelector( '#filter .ccd' );
     inp_txt.addEventListener( 'keyup', ( ev )=>{
-      const words = ev.target.value.split( /\s+/ );
+      const str = inp_txt.value.replace(/\.\.\./,'…');
+      inp_txt.value = str;
+      const words = str.split( /\s+/ );
       const  res = words.map( word2re );
       const pred = str => res.reduce( ( acc, re ) => acc && re.test( str ) , true);
       

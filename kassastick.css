@@ -153,15 +153,19 @@ hr { visibility: hidden; }
 
   #filter .cancel-btn {
     position:absolute;
-    right:10px;top: 10px;border-radius:50%
+    right:10px;
+    top: 19px;
+    border-radius:50%;
+    width: 30px;
+    height: 30px;
   }
 
-#filter .ccd {
+#filter > .ccd {
   position: absolute;
   left:0; right:0;
   top: 50px;
 }
-#filter .ccd .dot {
+#filter .ccd > .dot {
   border-color: hsl( 0, 0%, 70% );
   box-shadow: none;
 } 
@@ -194,4 +198,9 @@ hr { visibility: hidden; }
   font-size: 36px;
   font-weight: 700;
   color: hsla(0,0%,0%,0.5)
+}
+
+#filter .enter-btn {
+  font-size: 1.6rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
