@@ -289,3 +289,21 @@ DATA.str += `
     dim 22x620x1820
 
 `
+
+DATA.str += `
+/ 979 / metallexpander
+  # 4x32 H
+    ean 4006209 62 3183
+  # 4x46mm S (4x45mm)
+    ean 4048962 16 4831
+  # 4x54mm S
+    ean 4048962 23 9744
+  # 5x52mm S
+    ean 4048962 16 4879
+  # 5x65 S
+    ean 4006209 62 3121
+  # 5x80 S
+    ean 4006209 62 3138
+    
+    
+`
