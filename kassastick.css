@@ -61,83 +61,19 @@ hr { visibility: hidden; }
   background-color: hsl( 0, 0%, 100%, 0.8 );  
 }
 
-.item {
+.group .item {
+  position:relative;
+  display: inline-block;
+  min-width: 90px;
   padding: 0.5rem;
   background-color: hsl( 0, 0%, 98% );
-}
-
-.group .item {
-  display: inline-block;
-  min-width: 50px;
   border-style: solid;
   border-width: 2px;
   border-radius: 0.33rem;
   border-color: hsl( 0, 0%, 50% );
   background-color: hsl( 0, 0%, 99% );
-  margin: 5px 5px 12px 5px;
+  margin: 5px 5px 16px 5px;
  
-}
-
-
-/* COLOR CODES */
-.ccd {
-  position: absolute;
-}
-.dot {
-  height: 10px;
-  width: 10px;
-  border-radius: 2px;
-  border: solid 1px hsl(0, 0%, 20%, 1);
-  margin: 3px 1px 0 1px;
-  text-align: left;
-  display: inline-block;
-  box-shadow: 0px 0px 2px 2px hsl(0, 0%, 0%, 0.25);
-}
-
-[data-color=r] { background-color: hsl(  350,90%,50%); }
-[data-color=o] { background-color: hsl( 30,100%,50%); }
-[data-color=y] { background-color: hsl( 50,100%,50%); }
-[data-color=g] { background-color: hsl( 100,60%,50%); }
-[data-color=b] { background-color: hsl(210,90%,50%); }
-[data-color=v] { background-color: hsl(280,90%,50%); }
-[data-color=w] { background-color: hsl( 20,60%,40%); }
-[data-color=s] { background-color: hsl(  0, 0%, 0%); }
-
-/* FILTERING */
-
-#filter {
-  background-color: hsla( 240, 70%, 10%, 0.8 );
-  color: white;
-  padding: 0.5rem 0;
-  /* box-shadow: 0px 0px 4px 4px hsla( 240, 90%, 10%, 0.75 ); */
- }
-
-@media only screen 
-  and (max-width: 499px) {
-  #filter {
-    position: fixed;
-    bottom:0;
-    left:0; right:0;
-    padding-top: 20px;  
-  }
-}
-
-@media only screen 
-  and (min-width: 450px) {
-    #filter {
-      position: fixed;
-      bottom:0;
-      right:0;
-      width: 450px;
-      padding: 40px 10px 10px 20px;
-      border-radius: 50px 0 0 0 ;
-
-    }
-  }
-
-
-[data-interesting=true] {
-  display: block;
 }
 
 .group[data-interesting=false] {
@@ -155,61 +91,107 @@ hr { visibility: hidden; }
   opacity: 0.2;
 }
 
-#filter {
+
+/* COLOR CODES */
+.ccd {
+  position: absolute;
+  left: 5px;
+  right: 5px;
   text-align: center;
-  margin-top: 0.6rem;
+  margin-top: 2px;
 }
 
-#filter .dot {
-  border-color: hsl( 0, 0%, 50% );
+#filter .ccd {
+  width: 100%;
+}
 
+.dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 2px;
+  border: solid 1px hsl(0, 0%, 20%, 1);
+  margin: 1px 1px 0 1px;
+  text-align: left;
+  display: inline-block;
+  box-shadow: 0px 0px 2px 2px hsl(0, 0%, 0%, 0.25);
+}
+
+[data-color=r] { background-color: hsl(  350,90%,50%); }
+[data-color=o] { background-color: hsl( 30,100%,50%); }
+[data-color=y] { background-color: hsl( 50,100%,50%); }
+[data-color=g] { background-color: hsl( 100,60%,50%); }
+[data-color=b] { background-color: hsl(210,90%,50%); }
+[data-color=v] { background-color: hsl(280,90%,50%); }
+[data-color=w] { background-color: hsl( 20,60%,40%); }
+[data-color=s] { background-color: hsl(  0, 0%, 0%); }
+
+
+/* FILTERING */
+
+@media only screen 
+  and (max-width: 499px) {
+  #filter {
+    position: fixed;
+    bottom:0;
+    left:0; right:0;
+  }
+}
+
+@media only screen 
+  and (min-width: 450px) {
+    #filter {
+      position: fixed;
+      bottom:0;
+      right:0;
+      width: 450px;
+      border-radius: 30px 0 0 0;
+    }
+    #filter input {
+      border-radius: 30px 0 0 0;
+    }
+  }
+
+  #filter .cancel-btn {
+    position:absolute;
+    right:10px;top: 10px;border-radius:50%
+  }
+
+#filter .ccd {
+  position: absolute;
+  left:0; right:0;
+  top: 50px;
+}
+#filter .ccd .dot {
+  border-color: hsl( 0, 0%, 70% );
+  box-shadow: none;
+} 
+[data-interesting=true] {
+  display: block;
+}
+
+#filter {
+  text-align: center;
+  background-color: hsla(0,0%,0%,0);
+  box-shadow: 0px 0px 4px 4px hsla(240,70%,15%,0.9);
 }
 
 #filter input {
   font-size: 1.6rem;
-  padding: 0.4rem;
-  width: 80%;
+  padding: 16px 8px 35px 8px;
+  width: 100%;
+  text-align: center;
   font-family: 'Courier New', Courier, monospace;
 }
- #color-input {
-  margin: 10px 0;
- }
- #color-input .display {
-  display: flex;
-  justify-content: center;
-  background-color: hsl( 0, 0%, 0%, 0.8 );
 
-}
-#color-input .display .dot {
-  height: 20px;
-  width: 8%;
-  margin: 1%;
-  background-color:hsl( 240, 80%, 30%, 0.15 )
-}
-#color-input .row {
-  display: flex;
-}
-#color-input .row button { 
-  height: 40px;
-  width: 16%;
-  margin: 4%;
-  flex-grow:1;
+
+#color-keypad {
+  display: grid;
+  grid-template-columns: repeat(10,1fr);
+  grid-template-rows: 50px;
 }
 
-.button {
-  position: relative;
-  display: inline-block;
-  background: #434343 none repeat scroll 0% 0%;
-  border: 1px solid #242424;
-  border-radius: 4px;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.25),
-    0 1px 0 rgba(255, 255, 255, 0.25) inset,
-    0 0 0 rgba(0, 0, 0, 0.5) inset,
-    0 1.25rem 0 rgba(255, 255, 255, 0.08) inset,
-    0 -1.25rem 1.25rem rgba(0, 0, 0, 0.3) inset,
-    0 1.25rem 1.25rem rgba(255, 255, 255, 0.1) inset;
-  text-align: center;
-  text-decoration: none;
-  margin: 0.618rem;
+#color-keypad button {
+  font-size: 36px;
+  font-weight: 700;
+  color: hsla(0,0%,0%,0.5)
 }

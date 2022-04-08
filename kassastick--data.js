@@ -201,7 +201,7 @@ DATA.str += `
     ccd bbbbbb
     dim 22
   # 25mm
-    ean 4042456 22 3805
+    ean 7350072 59 3805
     ccd bbbbbbb
     dim 25
 
