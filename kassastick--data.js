@@ -304,6 +304,24 @@ DATA.str += `
     ean 4006209 62 3121
   # 5x80 S
     ean 4006209 62 3138
+`
+
+DATA.str += `
+/ gas / PK5
+  * 7330385
+  # fyllning
+    ean ...13 2052
+    dim 5kg
+  # tomflaska
+    ean ...23 2059
+    dim 5kg
     
-    
+/ gas / PK10
+  * 7330385
+  # fyllning
+    ean ...13 2106
+    dim 10kg
+  # tomflaska
+    ean ...23 2103
+    dim 10kg
 `
