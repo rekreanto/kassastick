@@ -206,3 +206,31 @@ DATA.str += `
     dim 25
 
 `
+
+DATA.str += `
+/ trossbotten oljehärdad
+  # 6x550x1200mm
+    dim 6x550x1200
+    ccd yyyyyggggg
+    ean 7350072 59 0651
+
+/ OSB
+  * ean 4752011 00
+  # 11x897x2500
+    ccd ggss
+    ean ...1779
+  # 11x1197x2500
+    ccd gggss
+    ean ...1731
+  # 15x1250x2500
+    ccd ggsss
+    ean ...0581
+  # 18x1250x2500
+    ccd rssss
+    ean ...0598
+  # 18x600x2397
+    ccd yygggg
+    ean ...1861
+  
+  
+`
