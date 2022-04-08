@@ -15,10 +15,10 @@
     const esc_re = ( str ) =>
       str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     const word2re = Match
-      ( /^\[([a-z]+)\]$/ , ccd => RegExp( `\\[${ccd}\\]` )
-      , /^([a-z]+)\]$/   , ccd => RegExp( `\\[${ccd}\\]` )
-      , /^\[([a-z]*)$/   , ccd => RegExp( `\\[.*${ccd}.*\\]` )
-      , otherwise        , str => RegExp( esc_re( str ) )
+      ( /^\[([a-z]+)\]$/ , ccd => RegExp( `\\[${ccd}\\]`, 'i' )
+      , /^([a-z]+)\]$/   , ccd => RegExp( `\\[${ccd}\\]` , 'i' )
+      , /^\[([a-z]*)$/   , ccd => RegExp( `\\[.*${ccd}.*\\]` , 'i' )
+      , otherwise        , str => RegExp( esc_re( str ), 'i' )
       )
     ;
     const words2res = ( ...words ) => words.map( word2re );
@@ -239,7 +239,7 @@
         <div class="dot"></div>
       </div>
       <div id="color-keypad">
-      <button class="control-btn" data-char="[">[</button>
+      <!--button class="control-btn" data-char="[">[</button-->
       <button class="dot-btn" data-color="r"></button>
       <button class="dot-btn" data-color="o"></button>
       <button class="dot-btn" data-color="y"></button>
@@ -248,7 +248,8 @@
       <button class="dot-btn" data-color="v"></button>
       <button class="dot-btn" data-color="w"></button>
       <button class="dot-btn" data-color="s"></button>
-      <button class="control-btn" data-char="]">]</button>
+       <!--button class="control-btn" data-char="]">]</button-->
+      <button class="enter-btn">&crarr;</button>
     </div>
 
   </div>
