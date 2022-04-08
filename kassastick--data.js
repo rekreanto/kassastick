@@ -80,7 +80,7 @@ DATA.str += `
 = 3 gips
 
 
-/ gips / normal / 13x900x___
+/ skiva / gips / normal / 13x900x___
   * ean  7046638 88 8
   * dim  13x900x
 
@@ -115,7 +115,7 @@ DATA.str += `
     dim 3000
 
 
-/ gips / normal / 13x1200x___
+/ skiva / gips / normal / 13x1200x___
     * ean  5709636 00 
     * dim  13x1200x
     # 2400mm
@@ -138,7 +138,7 @@ DATA.str += `
       ccd yyss
       dim ...3000
 
-/ gips / renovering
+/ skiva / gips / renovering
   # ytskiva 6mm
     ean 5709 636 39 8240
     ccd o
@@ -149,7 +149,7 @@ DATA.str += `
     ccd ob
     dim 9x1200x2700
 
-/ gips / kortplank takskiva
+/ skiva / gips / kortplank takskiva
   # 1200mm
     ean 5709636 40 8222
     ccd vs
@@ -159,7 +159,7 @@ DATA.str += `
     ccd vvss
     dim 12,5x600x2400
 
-/ gips
+/ skiva / gips
   # golvgips
     ean 5709636 39 8264
     ccd yyys
@@ -174,7 +174,7 @@ DATA.str += `
 
 // MDF
 DATA.str += `
-/ MDF / _x1220x2440mm
+/ skiva / MDF / _x1220x2440mm
   * dim ...x1220x2400mm
   # 8mm
     ean 4042456 22 1994
@@ -208,13 +208,13 @@ DATA.str += `
 `
 
 DATA.str += `
-/ trossbotten oljehärdad
+/ skiva / trossbotten oljehärdad
   # 6x550x1200mm
     dim 6x550x1200
     ccd yyyyyggggg
     ean 7350072 59 0651
 
-/ OSB
+/ skiva / OSB
   * ean 4752011 00
   # 11x897x2500
     ccd ggss
@@ -235,7 +235,7 @@ DATA.str += `
   
 `
 DATA.str += `
-/ spånskiva / __x1200x2500
+/ skiva / spånskiva / __x1200x2500
   * ean 7029560 02
   * dim x1200x2500
   # 10mm
@@ -261,7 +261,7 @@ DATA.str += `
     
 `
 DATA.str += `
-/ golv / regelgolv
+/ skiva / golv / regelgolv
   * ean 7029560 00
   # 18x620x1820
     ccd s
@@ -277,7 +277,7 @@ DATA.str += `
     dim 22x620x2420
    
 
-/ golv / forestia renoveringsgolv
+/ skiva / golv / forestia renoveringsgolv
   * ean 7029560
   # 12x620x1820
     ccd ssss
