@@ -234,3 +234,29 @@ DATA.str += `
   
   
 `
+DATA.str += `
+/ spånskiva / __x1200x2500
+  * ean 7029560 02
+  * dim x1200x2500
+  # 10mm
+    ccd r
+    ean ...7374
+    dim 10...
+  # 12mm
+    ccd rr
+    ean ...7398
+    dim 12...
+  # 16mm
+    ccd rrr
+    ean ...7381
+    dim 16...
+  # 19mm
+    ccd rrrr
+    ean ...7602
+    dim 19...
+  # 22mm
+    ccd rrrrr
+    ean ...7619
+    dim 22...
+    
+`
