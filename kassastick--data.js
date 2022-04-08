@@ -18,13 +18,13 @@ DATA.str += `
   # BENDERS-pall
     ean 0200500 39 9936
 
-/ prov / golv
+/ prov / golvbräda
   # laminat
     ean 0200500 15 0728
   # parkett
     ean 0200500 15 0735
 
-/ prov / kakel
+/ prov / kakelplatta
   * ean 0200500 
   # < 30x30cm
     ean ...17 8333
@@ -34,6 +34,8 @@ DATA.str += `
     ean ...29 2176
   # mosaik
     ean ...16 8297
+
+/ prov / tapet
   # tapetbok
     ean 0200500 20 0157 
 
@@ -97,22 +99,22 @@ DATA.str += `
   # 2400mm
     ean ...019
     ccd ryy
-    dim 2400
+    dim ...2400
 
   # 2500mm
     ean ...033
     ccd yb
-    dim 2500
+    dim ...2500
 
   # 2700mm
     ean ...057
     ccd rb
-    dim 2700
+    dim ...2700
 
   # 3000mm
     ean ...071
     ccd yys
-    dim 3000
+    dim ...3000
 
 
 / skiva / gips / normal / 13x1200x___
@@ -284,7 +286,7 @@ DATA.str += `
     ean ...00 3378
     dim 12x620x1820
   # 22x620x1820
-    ccd ssss
+    ccd sssss
     ean ...02 0009
     dim 22x620x1820
 
@@ -307,7 +309,7 @@ DATA.str += `
 `
 
 DATA.str += `
-/ gas / PK5
+/ gasol / PK5
   * ean 7330385
   # fyllning
     ean ...13 2052
@@ -316,7 +318,7 @@ DATA.str += `
     ean ...23 2059
     dim 5kg
     
-/ gas / PK10
+/ gasol / PK10
   * ean 7330385
   # fyllning
     ean ...13 2106
