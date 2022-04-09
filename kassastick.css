@@ -149,6 +149,9 @@ hr { visibility: hidden; }
     #filter input {
       border-radius: 30px 0 0 0;
     }
+    #filter .footer {
+      height: 30px;
+    }
   }
 
   #filter .cancel-btn {
@@ -204,3 +207,4 @@ hr { visibility: hidden; }
   font-size: 1.6rem;
   font-family: Arial, Helvetica, sans-serif;
 }
+
