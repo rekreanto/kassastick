@@ -221,9 +221,10 @@
       
       // auto-click item if only one is selected
       if( interesting_items.size === 1 ){
-        const the_one = interesting_items.values()[0];
-        console.log('just one item', the_one );
-        the_one.dispatchEvent( new Event('click', { bubbles: false }) );
+        for( let the_one of interesting_items.values() ){
+          console.log('just one item', the_one );
+          the_one.node.dispatchEvent( new Event('click', { bubbles: false }) );
+        }
       } 
     } );
       
