@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kassastick</title>
+  <link href= "kassastick.css" rel="stylesheet">
+  <script src="barcodes.js"></script>
+  <script src="kassastick--data.js"></script>
+  <script src="kassastick--prelude.js"></script>
+  <script>
+    const display_ccd = ccd => {
+      for( let node of document.querySelectorAll( '#filter .ccd' ) ){
+        node.innerHTML ='';
+        mk_ccd( ccd, node );
+        console.log(ccd,node);
+      }
+    };
+    const clear_ccd = () => {
+      for( let node of document.querySelectorAll( '#filter .ccd' ) ){
+        node.innerHTML ='';
+      }
+    }
+    const transform_assimilate = Match
+      ( /\[…([a-z]+)…\]$/i , chars => char => `[…${chars}${char}…]`
+      , otherwise          , _     => char => `[…${char}…]` 
+      )
+    ;
+
+    const transform_finalize = Match
+      ( /\[…([a-z]+)…\]$/i , chars  => `[${chars}]`
+      , otherwise          , str    => str 
+      )
+    ;
+
+    const wildcard = str => str.replace( /…/, '\\S*?' )
+
+    // credit esc_re: https://stackoverflow.com/users/18936/bobince
+    const esc_re = ( str ) =>
+      str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const word2re = Match
+      ( /^\[([a-z]+)\]$/   , ccd => RegExp( `\\[${ccd}\\]`, 'i' )
+      , /^\[…([a-z]+)…\]$/ , ccd => RegExp( `\\[\\S*?${ccd}\\S*\\]` , 'i' )
+      , otherwise         , str => RegExp( wildcard( esc_re( str ) ), 'i' )
+      )
+    ;
+    const words2res = ( ...words ) => words.map( word2re );
+
+    const all = ( ...res ) => str => res.reduce( ( acc, re ) => acc && re.test( str ) , true);
+
+
+    const mk_dot = ( c, parent=document.body ) => {
+      const node = document.createElement('div');
+      node.classList = 'dot';
+      node.dataset.color = c;
+      parent.appendChild( node );
+    }
+    const mk_ccd = ( ccd, parent=document.body ) => {
+      const node = document.createElement('div');
+      node.classList.add('ccd');
+      parent.appendChild( node );
+      for( let c of ccd.split('') ) mk_dot( c, node );
+    }
+    const fill_in = (key, val, templ) => {
+      const val_ = val.replace( '...', templ )
+      return key === 'ean' ? val_.replace( /\s+/g, '' ): val_;
+    } 
+    // do on load
+    let active = { item: null, barcode: null };
+    document.addEventListener('DOMContentLoaded', ( ev ) => {
+      document.body.dataset.state = 'browsing';
+
+      // PARSE DATA
+      lines = DATA.str.split(/\n+/);
+      const groups = DATA.groups;
+      let current = null;
+      lines.forEach(
+        Match
+          ( /^\s*\/\s*/ , path => groups.push( {path:path, items:[], template:{}} )
+          , /^\s*\#\s*/ , key  => {
+            //console.log(key)
+            groups[groups.length-1].items.push([key,current={key}]) 
+            }
+          , /^\s*\*\s*([a-zA-Z\-]+)\s+/, (key, val) => groups[groups.length-1].template[key]=val
+          , /^\s*([a-zA-Z\-]+)\s+/, (key, val) => current[key] = fill_in(key,val,groups[groups.length-1].template[key])
+          , otherwise  , line => {
+                      // console.log( `????:${line}` )  
+                    }
+          
+          )
+      );
+      // gather free text field
+      for(let item of DATA.items){
+        // console.log(item);
+      }
+      // console.log(DATA.items)
+      // RENDER GROUPS
+      const gs = document.getElementById( 'groups' );
+      for(let g of groups){
+        const g_node = document.createElement( 'div' );
+        g.node = g_node;
+        gs.appendChild(g_node);
+        g_node.innerHTML = g.path + " / ";
+        g_node.classList.add('group');
+        for(let ki of g.items) {
+          const key = ki[0];
+          const item = ki[1];
+          // add path to item
+          item.path = g.path;
+          // RENDER ITEM
+          const item_node = document.createElement( 'button' );
+
+          g_node.appendChild( item_node );
+          // DATA
+          DATA.items.push( item );
+          item.node = item_node;
+          item.group = g;
+          item.group_node = g_node;
+          // DATA add text field for free text searches
+          const item_texts = [];
+          for( let t of [item.path, item.key, item.dim, item.desc, item.ean ])
+            if( t ) item_texts.push( t );
+          item.text = item_texts.join( '; ' );
+          if( item.ccd ) item.text += `; [${item.ccd}]`
+
+/*           DATA.ean2itemnode[ item.ean ] = item_node;
+          DATA.ean2groupnode[ item.ean ] = g_node; */
+          item_node.innerHTML = key;
+          item_node.dataset.ean = item.ean;
+          item_node.classList.add('item');
+          if( item.ccd ) mk_ccd( item.ccd, item_node )
+        }
+      }
+
+
+      // ADD EVENT HANDLERS
+
+      // ADD RESET HANDLER
+      reset = e => {
+        // console.log('reset')
+        document.body.dataset.state = 'browsing';
+        if( active.item ) active.item.classList.remove( 'selected' );
+        if( active.barcode ) active.barcode.parentNode.removeChild( active.barcode );
+        active.barcode = null;
+        active.item = null;
+       }
+      document.body.addEventListener( 'mouseup', reset );
+      // ADD SHOW EAN HANDLERS 
+      document.querySelectorAll('.item').forEach(
+        ( item ) => {
+          handler = e => {
+            e.stopPropagation()
+            reset();
+            // REFLECT STATE
+            document.body.dataset.state = 'selected';
+            item.classList.add( 'selected' );
+            active.item = item;
+
+            // PRODUCE BARCODE
+            const eanstr = item.dataset.ean;
+            const eansvg = str2svg( eanstr );
+            const barcode_display = document.createElement( 'div' );
+            barcode_display.innerHTML =  eansvg;
+            barcode_display.classList.add( 'barcode-display' )
+            item.after( barcode_display );
+            
+            // EXIT
+            if( active.barcode ) 
+              active.barcode.parentNode.removeChild( active.barcode );
+            // ENTRY
+            active.barcode = barcode_display;
+          }
+          item.addEventListener( 'click', handler );
+      });
+
+    // FILTERING
+    
+    // SELECT FILTER
+    const filter_area = document.getElementById( 'filter' );
+
+ 
+    // BIND EVENT HANDLERS 
+    const inp_txt = document.getElementById( 'inp-txt' );
+    const ccd_display = document.querySelector( '#filter .ccd' );
+    inp_txt.addEventListener( 'keyup', ( ev )=>{
+      const str = inp_txt.value.replace(/\.\.\./,'…');
+      inp_txt.value = str;
+      const words = str.split( /\s+/ );
+      const  res = words.map( word2re );
+      const pred = str => res.reduce( ( acc, re ) => acc && re.test( str ) , true);
+      
+      const uninteresting_groups = new Set( DATA.groups );
+      const interesting_groups = new Set( );
+      const interesting_items = new Set();
+      // loop through items
+      for( let item of DATA.items ){
+        // decide if interesting
+        if( pred( item.text ) ){
+          // item is interesting
+          interesting_items.add( item );
+          uninteresting_groups.delete( item.group );
+          interesting_groups.add( item.group );
+        }
+      }
+      // hide uninteresting groups
+      uninteresting_groups.forEach( g => g.node.dataset.interesting = false );
+      // show interesting groups
+      for(let g of interesting_groups){
+        g.node.dataset.interesting = true;
+        for(let [,i] of g.items ){
+          i.node.dataset.interesting = interesting_items.has(i);
+          i.node.disabled = !interesting_items.has(i);
+        }
+      }
+      
+      // reflect on item level
+      // reflect on group level
+    } );
+    
+    // CCD KEYPAD
+
+    // CCD KEYPAD -- color buttons
+    // bind assmiliate
+    for(let btn of document.querySelectorAll( "#color-keypad .dot-btn" ) ){
+      const char = btn.dataset.color;
+      btn.addEventListener( 'click', () => {
+        inp_txt.value = transform_assimilate( inp_txt.value )( char );
+        inp_txt.dispatchEvent( new Event('keyup', { bubbles: false }) );
+        display_ccd( inp_txt.value, ccd_display );
+        Match
+          ( /\[…([a-z]+)…\]/, ccd => display_ccd( ccd, ccd_display ) )( inp_txt.value )
+      });
+    };
+    
+    // bind finalize
+    for(let btn of document.querySelectorAll( "#filter .enter-btn" ) ){
+      btn.addEventListener( 'click', () => {
+        inp_txt.value = transform_finalize( inp_txt.value )
+        inp_txt.dispatchEvent( new Event('keyup', { bubbles: false } ) );
+      } );
+    }
+    // bind reset
+    for(let btn of document.querySelectorAll( "#filter .cancel-btn" ) ){
+      btn.addEventListener( 'click', () => {
+        inp_txt.value = '';
+        inp_txt.dispatchEvent( new Event('keyup', { bubbles: false } ) );
+        ccd_display.innerHTML='';
+      } );
+    }
+  });
+  </script>
+</head>
+<body data-state="browsing">
+
+  <div id="groups"></div>
+
+  <div id="filter">
+    <!-- &#128269; --> 
+    <input id="inp-txt" type="text" size="10">
+    <button class="cancel-btn">x</button>
+      <div class="ccd">
+      </div>
+      <div id="color-keypad">
+      <!--button class="control-btn" data-char="[">[</button-->
+      <button class="dot-btn" data-color="r"></button>
+      <button class="dot-btn" data-color="o"></button>
+      <button class="dot-btn" data-color="y"></button>
+      <button class="dot-btn" data-color="g"></button>
+      <button class="dot-btn" data-color="b"></button>
+      <button class="dot-btn" data-color="v"></button>
+      <button class="dot-btn" data-color="w"></button>
+      <button class="dot-btn" data-color="s"></button>
+       <!--button class="control-btn" data-char="]">]</button-->
+      <button class="enter-btn">&crarr;</button>
+    </div>
+
+  </div>
+  
+</div>
+
+<div style="height: 36vh;"></div>
+
+  <div id="shield"></div>
+
+</body>
+</html>
