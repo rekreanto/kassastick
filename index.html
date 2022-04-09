@@ -184,7 +184,7 @@
     const inp_txt = document.getElementById( 'inp-txt' );
     const ccd_display = document.querySelector( '#filter .ccd' );
     inp_txt.addEventListener( 'keyup', ( ev )=>{
-      const str = inp_txt.value.replace(/\.\.\./,'…');
+      const str = inp_txt.trim().value.replace(/\.\.\./,'…');
       inp_txt.value = str;
       const words = str.split( /\s+/ );
       const  res = words.map( word2re );
@@ -193,14 +193,16 @@
       const uninteresting_groups = new Set( DATA.groups );
       const interesting_groups = new Set( );
       const interesting_items = new Set();
-      // loop through items
-      for( let item of DATA.items ){
-        // decide if interesting
-        if( pred( item.text ) ){
-          // item is interesting
-          interesting_items.add( item );
-          uninteresting_groups.delete( item.group );
-          interesting_groups.add( item.group );
+      // loop through items, if is search string is not empty
+      if( str!=='' ){
+        for( let item of DATA.items ){
+          // decide if interesting
+          if( pred( item.text ) ){
+            // item is interesting
+            interesting_items.add( item );
+            uninteresting_groups.delete( item.group );
+            interesting_groups.add( item.group );
+          }
         }
       }
       // hide uninteresting groups
@@ -216,6 +218,13 @@
       
       // reflect on item level
       // reflect on group level
+      
+      // auto-click item if only one is selected
+      if( interesting_items.size === 1 ){
+        const the_one = interesting_items.values()[0];
+        console.log('just one item', the_one );
+        the_one.dispatchEvent( new Event('click', { bubbles: false }) );
+      } 
     } );
     
     // CCD KEYPAD
