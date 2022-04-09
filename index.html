@@ -226,7 +226,9 @@
         the_one.dispatchEvent( new Event('click', { bubbles: false }) );
       } 
     } );
-    
+      
+    // init at load time
+    inp_txt.dispatchEvent( new Event('keyup', { bubbles: false }) );
     // CCD KEYPAD
 
     // CCD KEYPAD -- color buttons
