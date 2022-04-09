@@ -195,7 +195,7 @@
       const interesting_groups = new Set( );
       const interesting_items = new Set();
       // loop through items, if is search string is not empty
-      if( !/\s*/.test( str ) ){
+      if( str !== ' ' ){
         for( let item of DATA.items ){
           // decide if interesting
           if( pred( item.text ) ){
