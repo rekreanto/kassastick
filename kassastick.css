@@ -150,7 +150,8 @@ hr { visibility: hidden; }
       border-radius: 30px 0 0 0;
     }
     #filter .footer {
-      height: 30px;
+      height: 60px;
+      backgrund-color: white;
     }
   }
 
