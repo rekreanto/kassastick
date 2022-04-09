@@ -184,7 +184,7 @@
     const inp_txt = document.getElementById( 'inp-txt' );
     const ccd_display = document.querySelector( '#filter .ccd' );
     inp_txt.addEventListener( 'keyup', ( ev )=>{
-      const str = inp_txt.trim().value.replace(/\.\.\./,'…');
+      const str = inp_txt.value.trim().replace(/\.\.\./,'…');
       inp_txt.value = str;
       const words = str.split( /\s+/ );
       const  res = words.map( word2re );
