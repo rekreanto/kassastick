@@ -306,6 +306,10 @@ DATA.str += `
     ean 4006209 62 3121
   # 5x80 S
     ean 4006209 62 3138
+
+/ 979 / kabelkanal
+  # ledningslist
+    ean 3606480 78 7805
 `
 
 DATA.str += `
