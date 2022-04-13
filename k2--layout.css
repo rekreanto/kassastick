@@ -42,10 +42,22 @@ button, input {
 
   display: grid;
   grid-template:
-    "display"  65px
-    "keyboard" 130px
+    "display"  1fr
+    "keyboard" 2fr
   ;
   grid-gap: 10px;
+}
+
+@media only screen and (min-width: 500px) {
+  .input {
+    height: 300px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .input {
+    height: 210px;
+  }
 }
 
 .input[data-focused=true] {
@@ -107,4 +119,6 @@ button, input {
   font-size: 26px;
 }
 
-
+footer {
+  height: 50vh;
+}

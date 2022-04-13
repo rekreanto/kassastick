@@ -49,30 +49,30 @@
     // RENDER page
       const ENV = {};
 
-
-      const transform_enter = Match
-        ( /\[…([a-z]+)…\]$/i , chars => `[${chars}]`
-        , otherwise          , chars => `[${chars}]` 
-        )
-      ;
       const handleColorButton = c => ev => {
-        const str = ENV.inputField.value;
         ENV.inputField.value = Match
-          ( /\[…([a-z]+)…\]$/i , chars => char => `[…${chars}${char}…]`
-          , otherwise          , _     => char => `[…${char}…]` 
-          )( str )( c )
+          ( /\[…([a-z]+)…\]$/i , chars => `[…${chars}${c}…]`
+          , otherwise          , _     => `[…${c}…]` 
+          )( ENV.inputField.value )
         ;
       };
       const handleEnterButton = ev => {
-        console.log( ev )
-        const str = ENV.inputField.value;
         ENV.inputField.value = Match
           ( /\[…([a-z]+)…\]$/i , chars => `[${chars}]`
+          , /\[([a-z]+)\]$/i , chars =>   `[${chars}]`
           , otherwise          , chars => `[${chars}]` 
-          )( str )
+          )( ENV.inputField.value )
         ;
       };
-
+      const handleResetButton = ev => { 
+        ENV.inputField.value = '';
+      }
+      const handleDeleteButton = ev => {
+        const str = ENV.inputField.value;
+        ENV.inputField.value = str.substring( 0, str.length-1 );
+      }
+      const handleFocus = ev => { ENV.input.dataset.focused = true; }
+      const handleBlur  = ev => { ENV.input.dataset.focused = false; }
       const ki2Item = ( [ key, item ] ) =>
         [ '<button>'
         , [ '.', 'item' ]
@@ -86,17 +86,26 @@
         , $2.each( g.items )( ki2Item )
         ]
       ;
+
       const Listing = 
         [ '<div listing listing>'
-        , $2.each( DATA.groups )( grpGroup )  
+        , $2.each( DATA.groups )( grpGroup )
+        , [ '<footer>' ]  
         ]
       ;
 
       const Display =
         [ '<div display display>'
-        , [ '<button deleteBtn del>', "<" ]
-        , [ '<input inputField inp>' ]
-        , [ '<button resetBtn res>', "x" ]
+        , [ '<button deleteBtn del>', "<"
+          , [ '!click', handleDeleteButton ]
+          ]
+        , [ '<input inputField inp>'
+          , [ '!focus', handleFocus ]
+          , [ '!blur' , handleBlur ]
+          ]
+        , [ '<button resetBtn res>', "x"
+          , [ '!click', handleResetButton ]
+          ]
         ]
       ;
       const colorBtn = c =>
@@ -132,24 +141,6 @@
           , env: ENV
           }
       );
-
-    // ADD event handlers
-      // handle state focused = hidden special keyboard
-      ENV.inputField.addEventListener( 'focus', ev => {
-        ENV.input.dataset.focused = true;
-      } );
-      ENV.inputField.addEventListener( 'blur', ev => {
-        ENV.input.dataset.focused = false;
-      } );
-      // handle delete button
-      ENV.deleteBtn.addEventListener( 'click', () => {
-        const str = ENV.inputField.value;
-        ENV.inputField.value = str.substring( 0, str.length-1 );
-      } );
-      // handle delete button
-      ENV.resetBtn.addEventListener( 'click', () => {
-        ENV.inputField.value = '';
-      } );
     }
   );
   </script>
