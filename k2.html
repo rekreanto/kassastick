@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kassastick</title>
+  <script src="barcodes.js"></script>
+  <script src="kassastick--data.js"></script>
+
+  <script src="k2--prelude.js"></script>
+  <script src="k2--nolay.js"></script>
+
+  <link href= "k2--layout.css" rel="stylesheet">
+  <link href= "k2--style.css" rel="stylesheet">
+  
+  <script>
+    // PAGE DEF
+    const ENV = {};
+    const EXITS = [];
+    const grpGroup = g => 
+      [ '<div group>', g
+      
+      ] 
+    const Listing = 
+      [ '<div listing listing>'
+      , $2.each( DATA.str.split( '\n' ) )( grpGroup )  
+      ]
+    ;
+
+    const Display =
+      [ '<div display display>'
+      , [ '<button deleteBtn del>', "<" ]
+      , [ '<input inpField inp>' ]
+      , [ '<button resetBtn res>', "x" ]
+      ]
+    ;
+    const cBtn = c =>
+        [ `<button ${c} ${c}>`
+        , [ '%color', c ]
+        ]
+    const Keyboard = 
+      [ '<div keyboard keyboard>'
+      , $2.each( 'roygbvns' )( cBtn )
+      , [ '<button enterBtn E>', "↵" ] 
+      ]
+    ;
+    const Main = 
+      [ '<div main>'
+      , Listing
+      , Display
+      , Keyboard
+      ]
+    ;
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', ( ev ) => {
+        $.syntax.texp2fn( Main )( 
+          { node: document.body
+          , env: ENV
+          , exits: EXITS
+          }
+      );
+    }
+  );
+  </script>
+</head>
+<body>
+
+
+
+</body>
+</html>
