@@ -35,13 +35,13 @@
       , [ '<button resetBtn res>', "x" ]
       ]
     ;
-    const cBtn = c =>
+    const colorBtn = c =>
         [ `<button ${c} ${c}>`
         , [ '%color', c ]
         ]
     const Keyboard = 
       [ '<div keyboard keyboard>'
-      , $2.each( 'roygbvns' )( cBtn )
+      , $2.each( 'roygbvns' )( colorBtn )
       , [ '<button enterBtn E>', "↵" ] 
       ]
     ;
