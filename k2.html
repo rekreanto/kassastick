@@ -15,63 +15,127 @@
   <link href= "k2--style.css" rel="stylesheet">
   
   <script>
-    // PAGE DEF
-    const ENV = {};
-    const EXITS = [];
-    const grpGroup = g => 
-      [ '<div group>', g
-      
-      ] 
-    const Listing = 
-      [ '<div listing listing>'
-      , $2.each( DATA.str.split( '\n' ) )( grpGroup )  
-      ]
-    ;
+    // PARSE DATA
+    const fill_in = (key, val, templ) => {
+      const val_ = val.replace( '...', templ )
+      return key === 'ean' ? val_.replace( /\s+/g, '' ): val_;
+    } 
+    lines = DATA.str.split(/\n+/);
+    const groups = DATA.groups;
+    let current = null;
+    lines.forEach(
+      Match
+        ( /^\s*\/\s*/ , path => groups.push( {path:path, items:[], template:{}} )
+        , /^\s*\#\s*/ , key  => {
+          //console.log(key)
+          groups[groups.length-1].items.push([key,current={key}]) 
+          }
+        , /^\s*\*\s*([a-zA-Z\-]+)\s+/, (key, val) => groups[groups.length-1].template[key]=val
+        , /^\s*([a-zA-Z\-]+)\s+/, (key, val) => current[key] = fill_in(key,val,groups[groups.length-1].template[key])
+        , otherwise  , line => {
+                    // console.log( `????:${line}` )  
+                  }
+        
+        )
+    );
+  </script>
 
-    const Display =
-      [ '<div display display>'
-      , [ '<button deleteBtn del>', "<" ]
-      , [ '<input inputField inp>' ]
-      , [ '<button resetBtn res>', "x" ]
-      ]
-    ;
-    const colorBtn = c =>
-        [ `<button ${c} ${c}>`
-        , [ '%color', c ]
-        ]
-    const Keyboard = 
-      [ '<div keyboard keyboard>'
-      , $2.each( 'roygbvns' )( colorBtn )
-      , [ '<button enterBtn E>', "↵" ] 
-      ]
-    ;
-
-    const Input = 
-      [ '<div input>'
-      , Display
-      , Keyboard
-      ]
-    const Main = 
-      [ '<div main>'
-      , Listing
-      , Input
-      ]
-    ;
+  <script>
   </script>
   
   <script>
-    document.addEventListener('DOMContentLoaded', ( ev ) => {
-        $.syntax.texp2fn( Main )( 
+    document.addEventListener('DOMContentLoaded', ( ev ) => 
+    {
+    // RENDER page
+      const ENV = {};
+      const EXITS = [];
+
+      const ki2Item = ( [ key, item ] ) =>
+        [ '<button>'
+        , [ '.', 'item' ]
+        , key
+        ]
+
+      const grpGroup = g => 
+        [ '<div group>'
+        , g.path
+        , " / "
+        , $2.each( g.items )( ki2Item )
+        ]
+      ;
+      const Listing = 
+        [ '<div listing listing>'
+        , $2.each( DATA.groups )( grpGroup )  
+        ]
+      ;
+
+      const Display =
+        [ '<div display display>'
+        , [ '<button deleteBtn del>', "<" ]
+        , [ '<input inputField inp>' ]
+        , [ '<button resetBtn res>', "x" ]
+        ]
+      ;
+      const colorBtn = c =>
+          [ `<button ${c} ${c}>`
+          , [ '.', "color-button" ]
+          , [ '%color', c ]
+          ]
+      const Keyboard = 
+        [ '<div keyboard keyboard>'
+        , $2.each( 'roygbvns' )( colorBtn )
+        , [ '<button enterBtn E>', "↵" ] 
+        ]
+      ;
+
+      const Input = 
+        [ '<div input>'
+        , Display
+        , Keyboard
+        ]
+      const Main = 
+        [ '<div main>'
+        , Listing
+        , Input
+        ]
+      ;
+    // INTERPRET page definition
+      $.syntax.texp2fn( Main )( 
           { node: document.body
           , env: ENV
           , exits: EXITS
           }
       );
+
+    // ADD event handlers
+      // handle state focused = hidden special keyboard
       ENV.inputField.addEventListener( 'focus', ev => {
         ENV.input.dataset.focused = true;
       } );
       ENV.inputField.addEventListener( 'blur', ev => {
         ENV.input.dataset.focused = false;
+      } );
+      // handle delete button
+      ENV.deleteBtn.addEventListener( 'click', () => {
+        const str = ENV.inputField.value;
+        ENV.inputField.value = str.substring( 0, str.length-1 );
+      } );
+      // handle delete button
+      ENV.resetBtn.addEventListener( 'click', () => {
+        ENV.inputField.value = '';
+      } );
+      // handle color buttons
+      ENV.keyboard.querySelectorAll( '.color-button' ).forEach( btn => {
+        console.log( btn );
+        btn.addEventListener( 'click', ev => {
+          const str = ENV.inputField.value;
+          const c = btn.dataset.color;
+          ENV.inputField.value += c; 
+        } )
+      } );
+      ENV.enterBtn.addEventListener( 'click', () => {
+        const str = ENV.inputField.value;
+        ENV.inputField.value = `[${str}]`;
       } );
     }
   );

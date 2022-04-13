@@ -79,7 +79,6 @@
         Match
           ( /^\s*\/\s*/ , path => groups.push( {path:path, items:[], template:{}} )
           , /^\s*\#\s*/ , key  => {
-            //console.log(key)
             groups[groups.length-1].items.push([key,current={key}]) 
             }
           , /^\s*\*\s*([a-zA-Z\-]+)\s+/, (key, val) => groups[groups.length-1].template[key]=val

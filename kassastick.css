@@ -78,7 +78,6 @@ hr { visibility: hidden; }
   border-color: hsl( 0, 0%, 50% );
   background-color: hsl( 0, 0%, 99% );
   margin: 5px 5px 16px 5px;
- 
 }
 
 .group[data-interesting=false] {
