@@ -28,6 +28,7 @@ $.syntax.head2fn = Match
   , /^\.(.+)$/   , cls => $1.class( cls )
   , /^\.$/       , _ =>   $1.class   
   , /^%(\S+)$/   , key => $2.data( key )
+  , /^!(\S+)$/   , eventName => $2.bind( eventName )
   )
 ;
 
@@ -115,3 +116,12 @@ $2.data =
     )
   ;
 };
+
+$2.bind = eventName => handler => ctx =>
+{ 
+  ctx.node.addEventListener( eventName, handler );
+  if( ctx.exits ) ctx.exits.push
+    ( () => ctx.node.removeEventListener( eventName, handler )
+    )
+  ;
+}

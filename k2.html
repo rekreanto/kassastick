@@ -48,7 +48,30 @@
     {
     // RENDER page
       const ENV = {};
-      const EXITS = [];
+
+
+      const transform_enter = Match
+        ( /\[…([a-z]+)…\]$/i , chars => `[${chars}]`
+        , otherwise          , chars => `[${chars}]` 
+        )
+      ;
+      const handleColorButton = c => ev => {
+        const str = ENV.inputField.value;
+        ENV.inputField.value = Match
+          ( /\[…([a-z]+)…\]$/i , chars => char => `[…${chars}${char}…]`
+          , otherwise          , _     => char => `[…${char}…]` 
+          )( str )( c )
+        ;
+      };
+      const handleEnterButton = ev => {
+        console.log( ev )
+        const str = ENV.inputField.value;
+        ENV.inputField.value = Match
+          ( /\[…([a-z]+)…\]$/i , chars => `[${chars}]`
+          , otherwise          , chars => `[${chars}]` 
+          )( str )
+        ;
+      };
 
       const ki2Item = ( [ key, item ] ) =>
         [ '<button>'
@@ -80,11 +103,15 @@
           [ `<button ${c} ${c}>`
           , [ '.', "color-button" ]
           , [ '%color', c ]
+          , [ '!click', handleColorButton( c ) ]
           ]
       const Keyboard = 
         [ '<div keyboard keyboard>'
         , $2.each( 'roygbvns' )( colorBtn )
-        , [ '<button enterBtn E>', "↵" ] 
+        , [ '<button enterBtn E>'
+          , "↵"
+          , [ '!click', handleEnterButton ] 
+          ] 
         ]
       ;
 
@@ -103,7 +130,6 @@
       $.syntax.texp2fn( Main )( 
           { node: document.body
           , env: ENV
-          , exits: EXITS
           }
       );
 
@@ -123,19 +149,6 @@
       // handle delete button
       ENV.resetBtn.addEventListener( 'click', () => {
         ENV.inputField.value = '';
-      } );
-      // handle color buttons
-      ENV.keyboard.querySelectorAll( '.color-button' ).forEach( btn => {
-        console.log( btn );
-        btn.addEventListener( 'click', ev => {
-          const str = ENV.inputField.value;
-          const c = btn.dataset.color;
-          ENV.inputField.value += c; 
-        } )
-      } );
-      ENV.enterBtn.addEventListener( 'click', () => {
-        const str = ENV.inputField.value;
-        ENV.inputField.value = `[${str}]`;
       } );
     }
   );
