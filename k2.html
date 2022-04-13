@@ -31,7 +31,7 @@
     const Display =
       [ '<div display display>'
       , [ '<button deleteBtn del>', "<" ]
-      , [ '<input inpField inp>' ]
+      , [ '<input inputField inp>' ]
       , [ '<button resetBtn res>', "x" ]
       ]
     ;
@@ -45,11 +45,16 @@
       , [ '<button enterBtn E>', "↵" ] 
       ]
     ;
+
+    const Input = 
+      [ '<div input>'
+      , Display
+      , Keyboard
+      ]
     const Main = 
       [ '<div main>'
       , Listing
-      , Display
-      , Keyboard
+      , Input
       ]
     ;
   </script>
@@ -62,6 +67,12 @@
           , exits: EXITS
           }
       );
+      ENV.inputField.addEventListener( 'focus', ev => {
+        ENV.input.dataset.focused = true;
+      } );
+      ENV.inputField.addEventListener( 'blur', ev => {
+        ENV.input.dataset.focused = false;
+      } );
     }
   );
   </script>
