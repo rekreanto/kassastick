@@ -32,10 +32,7 @@
           }
         , /^\s*\*\s*([a-zA-Z\-]+)\s+/, (key, val) => groups[groups.length-1].template[key]=val
         , /^\s*([a-zA-Z\-]+)\s+/, (key, val) => current[key] = fill_in(key,val,groups[groups.length-1].template[key])
-        , otherwise  , line => {
-                    // console.log( `????:${line}` )  
-                  }
-        
+        , otherwise  , line => {}
         )
     );
   </script>
@@ -48,7 +45,7 @@
     {
     // RENDER page
       const ENV = {};
-
+    // HANDLERS
       const handleColorButton = c => ev => {
         ENV.inputField.value = Match
           ( /\[…([a-z]+)…\]$/i , chars => `[…${chars}${c}…]`
@@ -73,10 +70,58 @@
       }
       const handleFocus = ev => { ENV.input.dataset.focused = true; }
       const handleBlur  = ev => { ENV.input.dataset.focused = false; }
+
+      // HANDLE SELECTION/ DISPLAY BARCODE
+      let active = { item: null, barcode: null };
+      handleReset = e => {
+        // console.log('reset')
+        document.body.dataset.state = 'browsing';
+        if( active.item ) active.item.classList.remove( 'selected' );
+        if( active.barcode ) active.barcode.parentNode.removeChild( active.barcode );
+        active.barcode = null;
+        active.item = null;
+      }
+      document.body.addEventListener( 'mouseup', handleReset );
+      
+      const handleItemClick = e => {
+            e.stopPropagation();
+            const item = e.target;
+            if( !item.dataset.ean ) return;
+            handleReset();
+
+            // REFLECT STATE
+            document.body.dataset.state = 'selected';
+            item.classList.add( 'selected' );
+            active.item = item;
+
+            // PRODUCE BARCODE
+            const eanstr = item.dataset.ean;
+            console.log( 'Selected: ', eanstr )
+            const eansvg = str2svg(  eanstr );
+            const barcode_display = document.createElement( 'div' );
+            barcode_display.innerHTML =  eansvg;
+            barcode_display.classList.add( 'barcode-display' )
+            item.after( barcode_display );
+            
+            // EXIT -- redundant -- aldready done in handleReset
+     
+            // ENTRY
+            active.barcode = barcode_display;
+          }
+      
+      const ccd_markup = Case
+        ( _String,  ccd => {console.log('tp',typeof(ccd)); return ['<div>']}
+ 
+        , _ => [ '<div>' ]
+        )
+      ;
+    // MARKUP
       const ki2Item = ( [ key, item ] ) =>
         [ '<button>'
         , [ '.', 'item' ]
+        , [ '%ean', item.ean ]
         , key
+        , ccd_markup( item.ccd )
         ]
 
       const grpGroup = g => 
@@ -91,6 +136,7 @@
         [ '<div listing listing>'
         , $2.each( DATA.groups )( grpGroup )
         , [ '<footer>' ]  
+        , [ '!click', handleItemClick ]
         ]
       ;
 
@@ -133,6 +179,7 @@
         [ '<div main>'
         , Listing
         , Input
+        , [ '<div>', [ '@id', 'shield' ] ]
         ]
       ;
     // INTERPRET page definition

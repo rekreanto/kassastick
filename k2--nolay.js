@@ -29,6 +29,7 @@ $.syntax.head2fn = Match
   , /^\.$/       , _ =>   $1.class   
   , /^%(\S+)$/   , key => $2.data( key )
   , /^!(\S+)$/   , eventName => $2.bind( eventName )
+  , /^@(\S+)$/   , attrName => $2.attr( attrName )
   )
 ;
 
@@ -119,9 +120,34 @@ $2.data =
 
 $2.bind = eventName => handler => ctx =>
 { 
-  ctx.node.addEventListener( eventName, handler );
+  const handler_ = ev => {
+    const ret = handler( ev );
+    if( ret ) $.syntax.texp2fn( ret )( ctx );
+  }
+  ctx.node.addEventListener( eventName, handler_ );
   if( ctx.exits ) ctx.exits.push
     ( () => ctx.node.removeEventListener( eventName, handler )
     )
   ;
 }
+
+$2.if = bool => texp => ctx => 
+{
+  if( bool ) 
+    $.syntax.texp2fn( texp )( ctx );
+}
+
+$1.log = ( ...xs ) => ctx => {
+  console.log( ...xs );
+}
+
+$2.attr = k => v => ctx => 
+{
+// ENTRY
+  ctx.node[ k ] = v;
+// EXIT
+  if ( ctx.exits ) ctx.exits.push
+    ( () => ctx.node.removeAttribute( k ) 
+    )
+  ;
+};

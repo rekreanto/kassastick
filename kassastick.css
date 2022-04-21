@@ -43,18 +43,7 @@ body {
   height: 100%;
   width: 100%;
 }
-body[data-state=selected] { background-color: #bbb; }
-body[data-state=browsing] #shield { z-index: -2000; }
-body[data-state=selected] .item { filter: blur( 1px );}
-body[data-state=selected] .item.selected { filter: blur( 0px );  border-color: white;}
 
-body[data-state=selected] .selected {
-  position: relative;
-  z-index: 2000;
-  box-shadow: 7px 7px 34px 0px rgba(0, 0, 0, 0.75);
-}
-
-body[data-state=selected] .barcode-display { z-index: 2000; }
 
 .ean { display: none }
 
