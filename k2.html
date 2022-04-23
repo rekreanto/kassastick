@@ -63,12 +63,11 @@
           , otherwise          , chars => `[${chars}]` 
           )( ENV.inputField.value )
         ;
-        console.log('displath')
-        ENV.inputField.dispatchEvent( new Event('keyup', { bubbles: true }) );
-      
+        ENV.inputField.dispatchEvent( new Event('keyup', { bubbles: false }) );
       };
       const handleResetButton = ev => { 
         ENV.inputField.value = '';
+        ENV.inputField.dispatchEvent( new Event('keyup', { bubbles: false }) );
       }
       const handleDeleteButton = ev => {
         ENV.inputField.value = Match
@@ -76,6 +75,7 @@
           , otherwise          , str     => str.substring( 0, str.length-1 ) 
           )( ENV.inputField.value )
         ;
+        ENV.inputField.dispatchEvent( new Event('keyup', { bubbles: false }) );
       };
 
       const handleFocus = ev => { ENV.input.dataset.focused = true; }
