@@ -24,7 +24,8 @@ const trimsplit = ( re, str ) => {
 
 
 $.syntax.head2fn = Match
-  ( /^<([^>]+)>/ , argstr => $2.tag( ...trimsplit( /\s+/, argstr ) )
+  ( _Function, fn => fn
+  , /^<([^>]+)>/ , argstr => $2.tag( ...trimsplit( /\s+/, argstr ) )
   , /^\.(.+)$/   , cls => $1.class( cls )
   , /^\.$/       , _ =>   $1.class   
   , /^%(\S+)$/   , key => $2.data( key )
@@ -151,3 +152,5 @@ $2.attr = k => v => ctx =>
     )
   ;
 };
+
+$1.run = f => ctx => f( ctx );

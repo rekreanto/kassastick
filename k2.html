@@ -23,12 +23,13 @@
     lines = DATA.str.split(/\n+/);
     const groups = DATA.groups;
     let current = null;
+    let current_group = null;
     lines.forEach(
       Match
-        ( /^\s*\/\s*/ , path => groups.push( {path:path, items:[], template:{}} )
+        ( /^\s*\/\s*/ , path =>
+          groups.push( current_group = {path:path, items:[], template:{}} )
         , /^\s*\#\s*/ , key  => {
-          //console.log(key)
-          groups[groups.length-1].items.push([key,current={key}]) 
+          groups[groups.length-1].items.push([key,current={key,path:current_group.path, group: current_group }]) 
           }
         , /^\s*\*\s*([a-zA-Z\-]+)\s+/, (key, val) => groups[groups.length-1].template[key]=val
         , /^\s*([a-zA-Z\-]+)\s+/, (key, val) => current[key] = fill_in(key,val,groups[groups.length-1].template[key])
@@ -41,10 +42,11 @@
   </script>
   
   <script>
+      const ENV = {};
     document.addEventListener('DOMContentLoaded', ( ev ) => 
     {
     // RENDER page
-      const ENV = {};
+
     // HANDLERS
       const handleColorButton = c => ev => {
         ENV.inputField.value = Match
@@ -52,6 +54,7 @@
           , otherwise          , _     => `[…${c}…]` 
           )( ENV.inputField.value )
         ;
+        ENV.inputField.dispatchEvent( new Event('keyup', { bubbles: true }) );
       };
       const handleEnterButton = ev => {
         ENV.inputField.value = Match
@@ -60,14 +63,21 @@
           , otherwise          , chars => `[${chars}]` 
           )( ENV.inputField.value )
         ;
+        console.log('displath')
+        ENV.inputField.dispatchEvent( new Event('keyup', { bubbles: true }) );
+      
       };
       const handleResetButton = ev => { 
         ENV.inputField.value = '';
       }
       const handleDeleteButton = ev => {
-        const str = ENV.inputField.value;
-        ENV.inputField.value = str.substring( 0, str.length-1 );
-      }
+        ENV.inputField.value = Match
+          ( /\[…([a-z]*?)[a-z]…\]$/i , chars => `[…${chars}…]`
+          , otherwise          , str     => str.substring( 0, str.length-1 ) 
+          )( ENV.inputField.value )
+        ;
+      };
+
       const handleFocus = ev => { ENV.input.dataset.focused = true; }
       const handleBlur  = ev => { ENV.input.dataset.focused = false; }
 
@@ -107,25 +117,106 @@
      
             // ENTRY
             active.barcode = barcode_display;
+          };
+
+      // HANDLE INPUT
+
+      const esc_re = ( str ) =>
+        str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const wildcard = str =>
+        str.replace( /…/, '\\S*?' );
+      const word2re = Match
+        ( /^\[([a-z]+)\]$/   , ccd => RegExp( `\\[${ccd}\\]`, 'i' )
+        , /^\[…([a-z]+)…\]$/ , ccd => RegExp( `\\[\\S*?${ccd}\\S*\\]` , 'i' )
+        , otherwise         , str => RegExp( wildcard( esc_re( str ) ), 'i' )
+        )
+      ;
+      const words2res = ( ...words ) => words.map( word2re );    
+
+      const handleKeyup = e => {
+        const inp_txt = e.target;
+        
+        // wildcard glyph
+        const str = inp_txt.value.replace(/\.\.\./,'…');
+        inp_txt.value = str;
+
+        // Make predicate
+        const res = str.split( /\s+/ ).map( word2re );
+        const pred = str => res.reduce
+          ( ( acc, re ) => acc && re.test( str ) 
+          , true
+          )
+        ;
+
+        // Prepare search
+        const uninteresting_groups = new Set( DATA.groups );
+        const interesting_groups   = new Set();
+        const interesting_items    = new Set();
+
+        // loop through items, if is search string is not empty
+        if( str.trim() !== '' ){
+          for( let item of DATA.items ){
+            // decide if interesting
+            if( pred( item.text ) ){
+              console.log('y')
+              // item is interesting
+              interesting_items.add( item );
+              uninteresting_groups.delete( item.group );
+              interesting_groups.add( item.group );
+            }
           }
+        }
+
+        // hide uninteresting groups
+        uninteresting_groups.forEach( g => g.node.dataset.interesting = false );
+        // show interesting groups
+        for(let g of interesting_groups){
+          g.node.dataset.interesting = true;
+          for(let [,i] of g.items ){
+            i.node.dataset.interesting = interesting_items.has(i);
+            i.node.disabled = !interesting_items.has(i);
+          }
+        }
+
+        if( interesting_items.size === 1 ){
+          for( let the_one of interesting_items.values() ){
+            the_one.node.dispatchEvent
+              ( new Event('click', { bubbles: true }) );
+          }
+        } 
+      }
       
-      const ccd_markup = Case
-        ( _String,  ccd => {console.log('tp',typeof(ccd)); return ['<div>']}
- 
+      const ccd_markup = Match
+        ( _String,  ccd => { console.log( 'ccd', ccd )
+          return ['<div>'
+          , [ '.', 'ccd' ]
+          , [ $2.each( ccd.split('') )
+            , c => 
+              [ '<div>'
+              , [ '.', 'dot' ] 
+              , [ '%color', c ]
+              ]
+            ]
+
+          ] }
+
         , _ => [ '<div>' ]
         )
       ;
     // MARKUP
-      const ki2Item = ( [ key, item ] ) =>
+      const ki2Item = ( [ key, item ] ) => 
         [ '<button>'
+        , ( ctx ) => DATA.items.push( item )
+        , ( ctx ) => item.node = ctx.node
         , [ '.', 'item' ]
         , [ '%ean', item.ean ]
         , key
         , ccd_markup( item.ccd )
         ]
-
+      ;
       const grpGroup = g => 
         [ '<div group>'
+        , ( ctx ) => g.node = ctx.node
         , g.path
         , " / "
         , $2.each( g.items )( ki2Item )
@@ -148,6 +239,7 @@
         , [ '<input inputField inp>'
           , [ '!focus', handleFocus ]
           , [ '!blur' , handleBlur ]
+          , [ '!keyup', handleKeyup ]
           ]
         , [ '<button resetBtn res>', "x"
           , [ '!click', handleResetButton ]
@@ -172,6 +264,7 @@
 
       const Input = 
         [ '<div input>'
+        , [ '@id', 'filter' ]
         , Display
         , Keyboard
         ]
@@ -188,11 +281,26 @@
           , env: ENV
           }
       );
+
+    // ANNOTATE items with <item>.text
+    
+      for( let item of DATA.items ){
+        // add text field for free text searches
+        const item_texts = [];
+
+        for( let t of [item.path, item.key, item.dim, item.desc ])
+          if( t ) item_texts.push( t );
+      
+        for( let t of [ item.ccd, item.ean ])
+          if( t ) item_texts.push( `[${ t }]` );
+        
+        item.text = item_texts.join( '; ' );
+      }
     }
   );
   </script>
 </head>
-<body>
+<body data-state="browsing">
 
 
 
