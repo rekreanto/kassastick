@@ -132,7 +132,7 @@
         )
       ;
       const words2res = ( ...words ) => words.map( word2re );    
-
+          
       const handleKeyup = e => {
         const inp_txt = e.target;
         
@@ -187,8 +187,7 @@
       }
       
       const ccd_markup = Match
-        ( _String,  ccd => { console.log( 'ccd', ccd )
-          return ['<div>'
+        ( _String,  ccd => ['<div>'
           , [ '.', 'ccd' ]
           , [ $2.each( ccd.split('') )
             , c => 
@@ -198,7 +197,7 @@
               ]
             ]
 
-          ] }
+          ]
 
         , _ => [ '<div>' ]
         )
@@ -297,6 +296,10 @@
         
         item.text = item_texts.join( '; ' );
       }
+      
+    // INIT
+    for( let g of DATA.groups )
+      g.node.dataset.interesting = false;
     }
   );
   </script>
