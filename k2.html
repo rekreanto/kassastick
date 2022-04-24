@@ -178,7 +178,7 @@
           }
         }
 
-        if( interesting_items.size === 1 ){
+        if( interesting_items.size === 1 && !/^\[…[a-z]+…\]$/.test( str ) ){
           for( let the_one of interesting_items.values() ){
             the_one.node.dispatchEvent
               ( new Event('click', { bubbles: true }) );
@@ -296,7 +296,7 @@
         
         item.text = item_texts.join( '; ' );
       }
-      
+
     // INIT
     for( let g of DATA.groups )
       g.node.dataset.interesting = false;
