@@ -331,3 +331,12 @@ DATA.str += `
     ean ...23 2103
     dim 10kg
 `
+DATA.str += `
+/ 979 / ved
+  # björkved 
+    ean 4742622 00 0018
+
+
+  
+
+`
