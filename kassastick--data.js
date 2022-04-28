@@ -336,7 +336,21 @@ DATA.str += `
   # björkved 
     ean 4742622 00 0018
 
+/ 979 / jord / 5 för 139:-
+  * ean 7391430 24
+  # planteringsjord
+    ean ...0146
+  # täckbark
+    ean ...0283
+  # toppdress
+    ean ...0337
+  # naturgödsel 
+    ean ...0382
 
-  
+/ 979 / jord / 5 för 99:95
+  * ean 7391430 24
+  # trädgårdsjord
+    ean ...0153
+ 
 
 `
