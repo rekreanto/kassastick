@@ -341,6 +341,33 @@ DATA.str += `
     ean ...3218
     ccd rrb
 
+/ skiva / plywood / byggplywood C+/C
+  * ean 7350072 59 
+  # 12x1200x2500mm
+    ean ...6639
+    ccd ggbb
+
+/ skiva / plywood / furuplywood / _x1220x2440
+* ean 7350072 59 
+  # 4mm
+    ean ...
+    ccd
+  # 7mm
+    ean ...
+    ccd
+  # 10mm
+    ean ...
+    ccd
+  # 12mm
+    ean ...
+    ccd
+
+/ skiva / plywood / furuplywood / _x1220x2440
+    * ean 7350072 59 
+      # 4mm
+        ean ...
+        ccd
+    
     `
 DATA.str += `
 / 979 / metallexpander
