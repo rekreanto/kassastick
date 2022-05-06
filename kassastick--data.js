@@ -234,9 +234,6 @@ DATA.str += `
     ccd yygggg
     ean ...1861
   
-  
-`
-DATA.str += `
 / skiva / spånskiva / __x1200x2500
   * ean 7029560 02
   * dim x1200x2500
@@ -291,7 +288,60 @@ DATA.str += `
     dim 22x620x1820
 
 `
+DATA.str += `
 
+/ skiva / plywood / Formplywood Basform (Brun glansig yta) / 12x_x_
+  * ean 7350072 59
+  # 12x600x2500
+    ean ...0354
+    ccd og
+  # 12x1200x1200
+    ean ...0347
+    ccd oog
+  # 12x1200x2500
+    ean ...0361
+    ccd ooog
+  # 12x1200x2500
+    ean ...6547
+    ccd ooooss
+
+/ skiva / plywood / formplywood Basform -- OBS! Brun glansig yta / >12x1200x2500
+  * ean 7350072 59    
+  # 15x1200x2500
+    ean ...0378
+    ccd oogg
+  # 18x1200x2500
+    ean ...0385
+    ccd ogg
+  # 21x1200x2500
+    ean ...0392
+    ccd oggg
+
+/ skiva / plywood / slitskyddsplywood -- OBS! yta med struktur
+  * ean 7350072 59    
+  # 15x1200x2500
+    ean ...4451
+    ccd oooyy
+
+/ skiva / plywood / takplywood _x1200x2400
+  * ean 7040437 62
+  # 12mm
+    ean ...1037
+    ccd rv
+  # 18mm
+    ean ...1365
+    ccd rrrGG
+
+/ skiva / plywood / väggplywood Wisa-wall / _x616x2400
+  * ean 7350072 59
+  # 12mm
+    ean ...3201
+    ccd ggb
+  # 15mm
+    ean ...3218
+    ccd rrb
+
+    `
 DATA.str += `
 / 979 / metallexpander
   # 4x32 H

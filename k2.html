@@ -42,7 +42,23 @@
   </script>
   
   <script>
-      const ENV = {};
+    const ccd_markup = Match
+      ( _String,  ccd => 
+        ['<div>'
+        , [ '.', 'ccd' ]
+        , [ $2.each( ccd.split('') )
+          , c => 
+            [ '<div>'
+            , [ '.', 'dot' ] 
+            , [ '%color', c ]
+            ]
+          ]
+
+        ]
+      , _ => [ '<div>' ]
+      )
+    ;
+    const ENV = {};
     document.addEventListener('DOMContentLoaded', ( ev ) => 
     {
     // RENDER page
@@ -50,7 +66,7 @@
     // HANDLERS
       const handleColorButton = c => ev => {
         ENV.inputField.value = Match
-          ( /\[…([a-z]+)…\]$/i , chars => `[…${chars}${c}…]`
+          ( /\[…([a-zA-Z]+)…\]$/ , chars => `[…${chars}${c}…]`
           , otherwise          , _     => `[…${c}…]` 
           )( ENV.inputField.value )
         ;
@@ -58,8 +74,8 @@
       };
       const handleEnterButton = ev => {
         ENV.inputField.value = Match
-          ( /\[…([a-z]+)…\]$/i , chars => `[${chars}]`
-          , /\[([a-z]+)\]$/i , chars =>   `[${chars}]`
+          ( /\[…([a-zA-Z]+)…\]$/ , chars => `[${chars}]`
+          , /\[([a-zA-Z]+)\]$/ , chars =>   `[${chars}]`
           , otherwise          , chars => `[${chars}]` 
           )( ENV.inputField.value )
         ;
@@ -126,8 +142,8 @@
       const wildcard = str =>
         str.replace( /…/, '\\S*?' );
       const word2re = Match
-        ( /^\[([a-z]+)\]$/   , ccd => RegExp( `\\[${ccd}\\]`, 'i' )
-        , /^\[…([a-z]+)…\]$/ , ccd => RegExp( `\\[\\S*?${ccd}\\S*\\]` , 'i' )
+        ( /^\[([a-zA-Z]+)\]$/   , ccd => RegExp( `\\[${ccd}\\]` )
+        , /^\[…([a-zA-Z]+)…\]$/ , ccd => RegExp( `\\[\\S*?${ccd}\\S*\\]` )
         , otherwise         , str => RegExp( wildcard( esc_re( str ) ), 'i' )
         )
       ;
@@ -139,6 +155,17 @@
         // wildcard glyph
         const str = inp_txt.value.replace(/\.\.\./,'…');
         inp_txt.value = str;
+
+        // reset viz
+        ENV.viz.innerHTML = '';
+        // vizualize color codes
+        const mrk = Match
+          ( /^\[([a-zA-Z]+)\]$/   , ccd => ccd_markup( ccd )
+          , /^\[…([a-zA-Z]+)…\]$/ , ccd => ccd_markup( ccd )
+          , otherwise, str => [ '<div>' ]
+          )( str )
+        // compile and draw ccd vizualization
+        $.syntax.texp2fn( mrk )({ node: ENV.viz });
 
         // Make predicate
         const res = str.split( /\s+/ ).map( word2re );
@@ -178,7 +205,7 @@
           }
         }
 
-        if( interesting_items.size === 1 && !/^\[…[a-z]+…\]$/.test( str ) ){
+        if( interesting_items.size === 1 && !/^\[…[a-zA-Z]+…\]$/.test( str ) ){
           for( let the_one of interesting_items.values() ){
             the_one.node.dispatchEvent
               ( new Event('click', { bubbles: true }) );
@@ -186,22 +213,7 @@
         } 
       }
       
-      const ccd_markup = Match
-        ( _String,  ccd => ['<div>'
-          , [ '.', 'ccd' ]
-          , [ $2.each( ccd.split('') )
-            , c => 
-              [ '<div>'
-              , [ '.', 'dot' ] 
-              , [ '%color', c ]
-              ]
-            ]
 
-          ]
-
-        , _ => [ '<div>' ]
-        )
-      ;
     // MARKUP
       const ki2Item = ( [ key, item ] ) => 
         [ '<button>'
@@ -229,17 +241,26 @@
         , [ '!click', handleItemClick ]
         ]
       ;
-
+      const Viz = 
+        [ '<div viz viz>'
+        ]
+      ;
+      const InputField =
+        [ '<div inp inp>'
+        , [ '<input inputField>'
+          , [ '!focus', handleFocus ]
+          , [ '!blur' , handleBlur ]
+          , [ '!keyup', handleKeyup ]
+          ]
+        , Viz 
+        ]
+      ;
       const Display =
         [ '<div display display>'
         , [ '<button deleteBtn del>', "<"
           , [ '!click', handleDeleteButton ]
           ]
-        , [ '<input inputField inp>'
-          , [ '!focus', handleFocus ]
-          , [ '!blur' , handleBlur ]
-          , [ '!keyup', handleKeyup ]
-          ]
+        , InputField
         , [ '<button resetBtn res>', "x"
           , [ '!click', handleResetButton ]
           ]
@@ -253,7 +274,7 @@
           ]
       const Keyboard = 
         [ '<div keyboard keyboard>'
-        , $2.each( 'roygbvns' )( colorBtn )
+        , $2.each( 'roygbvBGs' )( colorBtn )
         , [ '<button enterBtn E>'
           , "↵"
           , [ '!click', handleEnterButton ] 
