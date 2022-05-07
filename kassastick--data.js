@@ -350,24 +350,36 @@ DATA.str += `
 / skiva / plywood / furuplywood / _x1220x2440
 * ean 7350072 59 
   # 4mm
-    ean ...
-    ccd
+    ean ...3232
+    ccd gG
   # 7mm
-    ean ...
-    ccd
+    ean ...3249
+    ccd ggGG
   # 10mm
-    ean ...
-    ccd
+    ean ...3256
+    ccd gggGGG
   # 12mm
-    ean ...
-    ccd
+    ean ...3263
+    ccd rrrryyyy
 
-/ skiva / plywood / furuplywood / _x1220x2440
+/ skiva / plywood / furuplywood / spårad
     * ean 7350072 59 
-      # 4mm
-        ean ...
-        ccd
-    
+      # 12x1220x2440
+        ean ...2365
+        ccd G
+
+/ skiva / plywood / konstruktionsplywood WISA
+    * ean 7350072 59 
+      # 12x1200x2500
+        ean ...3515
+        ccd bs
+      # 12x900x2500
+        ean ...3881
+        ccd bbs
+      # 15x1200x2500
+        ean ...3102
+        ccd bbbs
+                  
     `
 DATA.str += `
 / 979 / metallexpander
