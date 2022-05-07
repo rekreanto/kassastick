@@ -379,8 +379,14 @@ DATA.str += `
       # 15x1200x2500
         ean ...3102
         ccd bbbs
-                  
-    `
+    
+
+
+/ skiva / plywood / konstruktionsplywood / 12x900
+    * ean 7040437 62
+      # 
+
+ `
 DATA.str += `
 / 979 / metallexpander
   # 4x32 H
