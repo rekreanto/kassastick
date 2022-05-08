@@ -391,7 +391,7 @@ DATA.str += `
         ean... 2416
         ccd GGss
       # 12x1200x2500
-        ean... 3666
+        ean ...3666
         ccd bsss
       
 
