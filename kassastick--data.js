@@ -384,7 +384,16 @@ DATA.str += `
 
 / skiva / plywood / konstruktionsplywood / 12x900
     * ean 7040437 62
-      # 
+      # 12x900x2500
+        ean ...3635
+        ccd yyggggg
+      # 15x900x2500
+        ean... 2416
+        ccd GGss
+      # 12x1200x2500
+        ean... 3666
+        ccd bsss
+      
 
  `
 DATA.str += `
