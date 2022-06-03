@@ -159,7 +159,6 @@ const testMatch = Match
   , 42       , () => "forty-two"
   , /^\d+$/  , () => "a string of digits"
   , _String  , () => "a string"
-
              , () => `yeah`
   )
 ;
