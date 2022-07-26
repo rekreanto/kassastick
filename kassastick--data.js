@@ -171,7 +171,65 @@ DATA.str += `
     ean 7332169 01 7753
     ccd ygg
     dim 13x900x2400
+ 
+`
+// gips 2
+DATA.str += `
+/ skiva / gips / Humidboard 2.0 våtrum
+  * ean 7332169 00
+  # 13x900x2500
+    ean ...5330
+    ccd v 
+  # 13x900x2700
+    ean ...5316
+    ccd ooo
+  # 13x1200x2500
+    ean ...5545
+    ccd vvvv
+  # 13x1200x2700
+    ean ...5552
+    ccd vvvvvv
 
+/ skiva / gips / brandgips
+  * ean 7046630 12
+    # 15x900x2500
+      ean ...0766
+      ccd ryyy
+    # 15x900x2400
+      ean ...0711
+      ccd ryyyyy
+    # 15x1200x2500
+      ean ...1701
+      ccd ryyyyy
+
+/ skiva / Gipsotex
+  # 12,5x1200x2400
+    # 12,5x1200x2400
+      ean 7046632 48 5610
+      ccd rroo
+/ skiva / gips / Norgips standard smygskiva
+    # 9x900x2500
+      ean 7046636 20 8383
+      ccd rroooo
+
+/ skiva / gips / Ultraboard
+  * ean 5709636
+    # 13x900x2500
+      ean ...400097
+      ccd bbs
+    # 15x1200x900
+      ean ...398202
+      ccd rrbb
+    # 13x1200x2500
+      ean ...714822
+      ccd ysss
+
+/ skiva / gips / Miniboard
+  # 13x900x1200
+    ean 4003982 539052
+    ccd vvvsss
+
+  
 `
 
 // MDF
@@ -283,7 +341,7 @@ DATA.str += `
     ean ...00 3378
     dim 12x620x1820
   # 22x620x1820
-    ccd sssss
+    ccd rs
     ean ...02 0009
     dim 22x620x1820
 
@@ -382,7 +440,7 @@ DATA.str += `
     
 
 
-/ skiva / plywood / konstruktionsplywood / 12x900
+/ skiva / plywood / konstruktionsplywood
     * ean 7040437 62
       # 12x900x2500
         ean ...3635
@@ -393,6 +451,55 @@ DATA.str += `
       # 12x1200x2500
         ean ...3666
         ccd bsss
+      # 15x1200x2500
+        ean ...3680
+        ccd rGG
+      # 18x1200x2500
+        ean ...3697
+        ccd yG
+      # 21x1200x2500
+        ean ...3864
+        ccd yyyGG
+
+/ skiva / board / _x1220x2440 
+    * ean 7350072 59
+      # oljehärdat 3mm
+        ean ...3041
+        ccd ooy
+      # oljehärdat 4,8mm
+        ean ...3300
+        ccd ooooy
+      # hårdboard 3mm
+        ean ...6226
+        ccd oooy
+
+/ skiva / vit lackobard
+    * ean 7350072 59
+      # matt
+        ean ...6554
+      # hålad
+        ean ...1443
+/ skiva / porös board
+      # ~
+        dim 12x1200x2440
+        ean 7350072 59 1467
+        ccd GGG
+      # vindtät
+        dim 12x1200x2440
+        ean 7022611 05 0055
+        ccd ooyy
+/ skiva / primaflex brandsäker
+    * 7350072 59
+      # 9x1200x2550
+        ean ...4727
+        ccd rrss
+      # 9x595x2550
+        ean ...5335
+        ccd rrrrssss
+
+
+
+
       
 
  `
