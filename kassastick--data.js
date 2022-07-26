@@ -388,7 +388,7 @@ DATA.str += `
         ean ...3635
         ccd yyggggg
       # 15x900x2500
-        ean... 2416
+        ean ...2416
         ccd GGss
       # 12x1200x2500
         ean ...3666
