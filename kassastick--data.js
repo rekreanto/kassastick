@@ -228,8 +228,6 @@ DATA.str += `
   # 13x900x1200
     ean 4003982 539052
     ccd vvvsss
-
-  
 `
 
 // MDF
