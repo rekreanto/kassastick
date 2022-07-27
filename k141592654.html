@@ -312,9 +312,9 @@
         for( let t of [item.path, item.key, item.dim, item.desc ])
           if( t ) item_texts.push( t );
       
-        for( let t of [ item.ccd, item.ean ])
+        for( let t of [ item.ccd, item.ean, item.ccd.split('').reverse().join('') ])
           if( t ) item_texts.push( `[${ t }]` );
-        
+
         item.text = item_texts.join( '; ' );
       }
 
