@@ -216,7 +216,7 @@ DATA.str += `
   * ean 5709636
     # 13x900x2500
       ean ...400097
-      ccd bbs
+      ccd bss
     # 15x1200x900
       ean ...398202
       ccd rrbb
