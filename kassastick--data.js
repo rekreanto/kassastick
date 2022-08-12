@@ -471,7 +471,7 @@ DATA.str += `
         ean ...6226
         ccd oooy
 
-/ skiva / vit lackobard
+/ skiva / vit lackboard
     * ean 7350072 59
       # matt
         ean ...6554
