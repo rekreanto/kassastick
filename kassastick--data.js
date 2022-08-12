@@ -475,8 +475,10 @@ DATA.str += `
     * ean 7350072 59
       # matt
         ean ...6554
+        ccd ww
       # hålad
         ean ...1443
+        ccd www
 / skiva / porös board
       # ~
         dim 12x1200x2440
