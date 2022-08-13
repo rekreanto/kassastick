@@ -50,6 +50,7 @@ rPatterns=[
 //ean-code:: [13 * digits]
 //digits2barcode:: ean-code -> bar-code
 function digits2barcode(xs){
+	console.log('ean: ', xs);
 	//xs="4902030193881".split('');
 	pat=rPatterns[xs[0]];
 	//console.log(pat)

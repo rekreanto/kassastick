@@ -489,19 +489,13 @@ DATA.str += `
         ean 7022611 05 0055
         ccd ooyy
 / skiva / primaflex brandsäker
-    * 7350072 59
+    * ean 7350072 59
       # 9x1200x2550
         ean ...4727
         ccd rrss
       # 9x595x2550
         ean ...5335
         ccd rrrrssss
-
-
-
-
-      
-
  `
 DATA.str += `
 / 979 / metallexpander
