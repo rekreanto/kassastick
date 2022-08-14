@@ -179,7 +179,7 @@ DATA.str += `
   * ean 7332169 00
   # 13x900x2500
     ean ...5330
-    ccd v 
+    ccd v
   # 13x900x2700
     ean ...5316
     ccd ooo
@@ -200,7 +200,7 @@ DATA.str += `
       ccd ryyyyy
     # 15x1200x2500
       ean ...1701
-      ccd ryyyyy
+      ccd ryyyy
 
 / skiva / Gipsotex
   # 12,5x1200x2400
@@ -221,7 +221,7 @@ DATA.str += `
       ean ...398202
       ccd rrbb
     # 13x1200x2500
-      ean ...714822
+      ean 7046 636 71 4822
       ccd ysss
 
 / skiva / gips / Miniboard

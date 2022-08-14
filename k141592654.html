@@ -31,8 +31,8 @@
         , /^\s*\#\s*/ , key  => {
           groups[groups.length-1].items.push([key,current={key,path:current_group.path, group: current_group }]) 
           }
-        , /^\s*\*\s*([a-zA-Z\-]+)\s+/, (key, val) => groups[groups.length-1].template[key]=val
-        , /^\s*([a-zA-Z\-]+)\s+/, (key, val) => current[key] = fill_in(key,val,groups[groups.length-1].template[key])
+        , /^\s*\*\s*([a-zA-Z\-]+)\s+/, (key, val) => groups[groups.length-1].template[key]=val.trim()
+        , /^\s*([a-zA-Z\-]+)\s+/, (key, val) => current[key] = fill_in(key,val.trim(),groups[groups.length-1].template[key])
         , otherwise  , line => {}
         )
     );
