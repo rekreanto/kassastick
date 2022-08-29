@@ -4,6 +4,7 @@ rev = function(xs){return xs.slice(0).reverse();}
 cp = function(xs){return xs.slice(0);}
 id = function(xs){return xs;}
 function pint(str){return parseInt(str,10);}
+const str2digits = str => str.replace( /\s+/g, '' ).split( '' ).map( pint );
 Array.prototype.flatten = function flatten(){
    var flat = [];
    for (var i = 0, l = this.length; i < l; i++){
@@ -16,7 +17,7 @@ Array.prototype.flatten = function flatten(){
 var EAN13 = {};
 EAN13.valid = function
   // 13 digits -> Bool
-  (xs){
+  ( xs=[] ){
     if(xs.length !== 13) return false;
     var digsum = 0;
     for(var i = 0;i<13;i++) digsum += (i%2===1?3:1)*xs[i];
@@ -106,16 +107,11 @@ function rects2svg(rs,digits,scale){ var ok, rects, svg;
 }
 
 const SCALE = 2;
-function str2svg(xs){ var ds,bc,rs,svg;
-	ds = xs.replace(/\s+/g,'').split('').map(pint);
-	//xs="4902030193881".split('');
+function str2svg( str ){ var ds,bc,rs,svg;
+	ds = str2digits( str );
 	bc = digits2barcode( ds );
-
 	rs = barcode2rects( bc ) ;
-	//console.log(rs);
-	svg = rects2svg( rs, ds , SCALE);
-	//console.log(svg);
-
+	svg = rects2svg( rs, ds , SCALE );
 	return svg;
 }
 

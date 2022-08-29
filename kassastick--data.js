@@ -459,13 +459,17 @@ DATA.str += `
         ean ...3864
         ccd yyyGG
 
-/ skiva / plywood / vänerply / _x2420
+/ skiva / plywood / vänerply kompakt / _x2420mm 
   * ean 7040437 62
+  * info spontade kanter
+  * vikt 4-5kg
+  * img https://www.moelven.com/globalassets/inriver/images/vanerply-kompakt-k2070.jpg
   # 12mm
     ean ...4717
     ccd ooss
   # 15mm
     ean ...4724
+
 
 / skiva / board / _x1220x2440 
     * ean 7350072 59

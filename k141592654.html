@@ -15,10 +15,26 @@
   <link href= "k2--style.css" rel="stylesheet">
   
   <script>
+    
+
+    const check_uniq_ean = ean => {
+      if( Object.hasOwn( check_uniq_ean.barcodes, ean ) ) 
+        console.error( ` The barcode ${ean} is not unique`  );
+      else  check_uniq_ean.barcodes[ ean ] = true;
+      const digits = str2digits( ean );
+      if( ! EAN13.valid( digits ) ) 
+        console.error( ` The barcode ${ean} is not a valid EAN-13 barcode`  );
+    };
+    check_uniq_ean.barcodes = {};
+
+
+
     // PARSE DATA
-    const fill_in = (key, val, templ) => {
-      const val_ = val.replace( '...', templ )
-      return key === 'ean' ? val_.replace( /\s+/g, '' ): val_;
+    const fill_in = ( key, val, templ ) => {
+      val = val.replace( '...', templ )
+      val = key === 'ean' ? val.replace( /\s+/g, '' ): val;
+      if( key === 'ean' ) check_uniq_ean( val );
+      return val;
     } 
     lines = DATA.str.split(/\n+/);
     const groups = DATA.groups;
