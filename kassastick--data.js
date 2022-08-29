@@ -459,6 +459,14 @@ DATA.str += `
         ean ...3864
         ccd yyyGG
 
+/ skiva / plywood / vänerply / _x2420
+  * ean 7040437 62
+  # 12mm
+    ean ...4717
+    ccd ooss
+  # 15mm
+    ean ...4724
+
 / skiva / board / _x1220x2440 
     * ean 7350072 59
       # oljehärdat 3mm
