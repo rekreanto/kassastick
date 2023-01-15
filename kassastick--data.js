@@ -161,6 +161,12 @@ DATA.str += `
     ccd vvss
     dim 12,5x600x2400
 
+/ skiva / gips / TECTOPANEL
+  # 13x600x1200
+    ccd rg
+  # 13x600x2400
+    ccd rgg
+
 / skiva / gips
   # golvgips
     ean 5709636 39 8264
@@ -289,7 +295,7 @@ DATA.str += `
   # 18x600x2397
     ccd yygggg
     ean ...1861
-  
+
 / skiva / spånskiva / __x1200x2500
   * ean 7029560 02
   * dim x1200x2500
