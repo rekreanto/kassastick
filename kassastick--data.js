@@ -164,9 +164,11 @@ DATA.str += `
 / skiva / gips / TECTOPANEL
   # 13x600x1200
     ccd rg
+    ean 5709636 38 0320
   # 13x600x2400
     ccd rgg
-
+    ean 5709636 38 0368
+    
 / skiva / gips
   # golvgips
     ean 5709636 39 8264
