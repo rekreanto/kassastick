@@ -292,7 +292,7 @@ DATA.str += `
   # 18x1250x2500
     ccd rssss
     ean ...0598
-  # 18x600x2397
+  # 18x600x2397 Fasad
     ccd yygggg
     ean ...1861
 
@@ -556,8 +556,10 @@ DATA.str += `
 `
 DATA.str += `
 / 979 / ved
-  # björkved 
+  # björkved 40l 
     ean 4742622 00 0018
+  # björkved 30l orange säck
+    ean 47426 220 00 551
 
 / 979 / jord / 5 för 139:-
   * ean 7391430 24
