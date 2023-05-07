@@ -65,18 +65,24 @@ DATA.str += `
   * ean 7311230 35
   # 1L
     ean ...0555
+    img https://www.bauhaus.se/media/catalog/product/cache/06447b731d1cbff22138e7150384a1c9/5/0/5037620A.jpg
   # 3,4L
     ean ...0647
+    img https://www.bauhaus.se/media/catalog/product/cache/06447b731d1cbff22138e7150384a1c9/5/0/5038625A.jpg
   # 10L
     ean ...0593
+    img https://www.bauhaus.se/media/catalog/product/cache/06447b731d1cbff22138e7150384a1c9/0/0/0037628A.jpg
 
 / tomburk Beckers plåt 
   # 1L
     ean 7311230350524
+    img https://www.bauhaus.se/media/catalog/product/cache/21699f94d6be91d029a9b3d1b5079673/5/0/5037626A.jpg
   # 3L
     ean 7311230350579
+    img https://www.bauhaus.se/media/catalog/product/cache/06447b731d1cbff22138e7150384a1c9/5/3/5363169A.jpg
   # 10L
     ean 7311230379150
+    img https://www.bauhaus.se/media/catalog/product/cache/06447b731d1cbff22138e7150384a1c9/5/0/5037630A.jpg
   
 / bauhaus
   # hopfällbar korg
