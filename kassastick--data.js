@@ -69,6 +69,14 @@ DATA.str += `
     ean ...0647
   # 10L
     ean ...0593
+
+/ tomburk Beckers plåt 
+  # 1L
+    ean 7311230350524
+  # 3L
+    ean 7311230350579
+  # 10L
+    ean 7311230379150
   
 / bauhaus
   # hopfällbar korg
