@@ -605,5 +605,8 @@ DATA.str += `
   # trädgårdsjord
     ean ...0153
  
+/ 979 / värmeloggs
+  # nya värmeloggsen utan kod
+    ean 4751021850599
 
 `
